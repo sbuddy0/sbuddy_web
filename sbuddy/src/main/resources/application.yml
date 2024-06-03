@@ -2,18 +2,41 @@ server:
   port: 8082
   
 spring:
+  profiles:
+    active: local
   thymeleaf:
     prefix: classpath:templates/
     suffix: .html
-    cache: false
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
-    
+    cache: false 
     
 mybatis:
   mapper-locations: sql/**/*.xml
   configuration:
     call-setters-on-nulls: true
+    
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.219.148:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&autoReconnection=true
+    username: sbuddy
+    password: sbuddy12#$
+    
+    
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+      - dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://49.168.77.13:33060/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
+    username: sbuddy
+    password: sbuddy12#$
