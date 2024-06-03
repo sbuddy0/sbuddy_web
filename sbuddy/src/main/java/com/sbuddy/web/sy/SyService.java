@@ -15,4 +15,9 @@ public class SyService {
 		//
 		return ResponseUtil.success(param);
 	}
+	
+	public Map<String, Object> testError(Map<String, Object> param) {
+		
+		return ResponseUtil.success(param);
+	}
 }

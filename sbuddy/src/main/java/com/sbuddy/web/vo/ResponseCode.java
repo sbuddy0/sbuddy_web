@@ -4,10 +4,12 @@ import org.springframework.http.HttpStatus;
 
 import lombok.Getter;
 
+/**
+ * 응답 코드
+ */
+
 @Getter
 public enum ResponseCode {
-	
-	
 	// Success
 	OK("200", HttpStatus.OK, "OK"),
 	
@@ -26,9 +28,4 @@ public enum ResponseCode {
 		this.httpStatus = httpStatus;
 		this.message = message;
 	}
-	
-	
-
-	
-	
 }

@@ -19,4 +19,10 @@ public class SyController {
 		
 		return syService.test(param);
 	}
+	
+	@PostMapping("/test/error")
+	public Map<String, Object> testError(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return syService.testError(param);
+	}
 }
