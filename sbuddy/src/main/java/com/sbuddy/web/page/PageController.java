@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 	
-	@GetMapping("/test")
+	@GetMapping(value = {"/", "/api"})
 	public String main() {
 		
-		return "/sy/test";
+		return "/api/api";
 	}
 }
