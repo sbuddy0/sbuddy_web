@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sbuddy.web.mypage.MypageMapper">
+	
+	<!-- 내 정보 가져오기 -->
+	<select id="getDetail" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			  id
+			, username
+			, email
+		FROM
+			MEMBER
+		WHERE
+			state = 'Y'
+		AND
+			idx = #{idx_member}
+	</select>
+
+	<!-- 내 정보 수정 -->
+	<update id="modifyInfo" parameterType="HashMap">
+		UPDATE
+			MEMBER
+		SET 
+			<if test="username != null and username != ''">
+				username = #{username}
+			</if>	
+		WHERE 
+			idx = #{idx_member}
+	</update>
+
+</mapper>

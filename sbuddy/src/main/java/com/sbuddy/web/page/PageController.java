@@ -11,4 +11,10 @@ public class PageController {
 		
 		return "/api/api";
 	}
+	
+	@GetMapping(value = {"/mypage"})
+	public String mypage() {
+		
+		return "/api/mypage";
+	}
 }
