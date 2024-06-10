@@ -33,10 +33,21 @@ public class MyPageController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/modify")
+	@PostMapping("/modify/info")
 	public Map<String, Object> modifyInfo (@RequestBody Map<String, Object> param) throws Exception {
 		
-		
 		return myPageService.modifyInfo(param);
+	}
+	
+	/**
+	 * 키워드 수정
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/modify/keyword")
+	public Map<String, Object> modifyKeyword (@RequestBody Map<String, Object> param) throws Exception {
+		
+		return myPageService.modifyKeyword(param);
 	}
 }

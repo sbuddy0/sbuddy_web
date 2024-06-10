@@ -3,10 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 API 테스트</title>
+<style type="text/css">
+div {
+	padding-bottom : 20px;
+}
+</style>
 </head>
 <body>
-	<h1>마이페이지 API 테스트</h1>
-	<button id="getDetailBtn">내 정보 가져오기</button>
+	<div>
+		<h1>마이페이지 API 테스트</h1>
+	</div>
+	<div>
+		<p>1. 내 정보 가져오기</p>
+		<button id="getDetailBtn">내 정보 가져오기</button>
+	</div>
+	<div>
+		<p>2. 내 정보 수정</p>
+		<label for="username">이름: </label><input type="text" id="username"/>
+		<button id="modifyBtn">수정</button>
+	</div>
+	<div>
+		<p>3. 키워드 수정</p>
+		<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
+		<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
+		<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
+		<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
+		<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
+		<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
+		<br/><br/>
+		<button id="keywordBtn">수정</button>
+	</div>
 </body>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/js/api/mypageApi.js"></script>

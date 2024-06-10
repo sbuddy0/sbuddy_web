@@ -28,4 +28,22 @@
 			idx = #{idx_member}
 	</update>
 
+	<!-- 멤버 키워드 삭제 -->
+	<delete id="deleteKeyword" parameterType="HashMap">
+		DELETE FROM MEMBER_KEYWORD
+		WHERE 
+			idx_member = #{idx_member}
+	</delete>
+
+	<!-- 키워드 수정 -->
+	<insert id="modifyKeyword" parameterType="HashMap">
+		INSERT INTO MEMBER_KEYWORD (
+			  idx_member
+			, idx_keyword
+		) VALUES (
+			  #{idx_member}
+			, #{idx_keyword}
+		)
+	</insert>
+
 </mapper>
