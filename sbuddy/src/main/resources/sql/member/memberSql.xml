@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sbuddy.web.sy.SyMapper">
+<mapper namespace="com.sbuddy.web.member.MemberMapper">
 	<select id="getMember" resultType="HashMap">
 		SELECT
 			*
 		FROM
 			MEMBER
 	</select>
-
+	
+	<!-- ##### 회원가입 ##### -->
+	
+	<!-- 아이디(이메일) 중복체크 -->
+	<select id="checkMemberId" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER
+		WHERE
+			id = #{email}
+	</select>
+	
+	
+	<!-- 회원가입시 회원 등록 -->
+	<insert id="joinMember" parameterType="HashMap">
+		INSERT INTO MEMBER (
+			id
+			, password
+			, username
+			, email
+		) VALUES (
+			#{id}
+			, #{password}
+			, #{username}
+			, #{email}
+		)
+	</insert>
 </mapper>
