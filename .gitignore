@@ -1,2 +1,3 @@
 .project
 .settings/*
+src/main/resources/aws.yml

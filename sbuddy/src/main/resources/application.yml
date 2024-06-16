@@ -10,8 +10,11 @@ spring:
     cache: false 
   servlet:
     multipart:
-      max-file-size: 300MB
-      max-request-size: 1800MB
+      max-file-size: 5MB
+      max-request-size: 10MB
+      location: C:\\Temp\\upload
+  config:
+    import: classpath:/aws.yml
     
 mybatis:
   mapper-locations: sql/**/*.xml
@@ -21,11 +24,10 @@ mybatis:
     
 cloud:
   aws:
-    s3:
-      bucket: sbuddy-bucket
     stack.auto: false
     region.static: ap-northeast-2
-
+    s3:
+      bucket: sbuddy-bucket
     
 ---
 
