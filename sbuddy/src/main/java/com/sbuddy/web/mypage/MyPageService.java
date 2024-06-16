@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
@@ -35,8 +36,11 @@ public class MyPageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> modifyInfo (Map<String, Object> param) throws Exception {
+	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
+		// 파일
+		String fileName = mFile.getOriginalFilename();
+		System.out.println(fileName);
 		if(mypageMapper.modifyInfo(param) > 0) {
 			return ResponseUtil.success();
 		} else {

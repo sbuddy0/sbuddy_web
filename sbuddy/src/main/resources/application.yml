@@ -8,11 +8,24 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false 
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 1800MB
     
 mybatis:
   mapper-locations: sql/**/*.xml
   configuration:
     call-setters-on-nulls: true
+    
+    
+cloud:
+  aws:
+    s3:
+      bucket: sbuddy-bucket
+    stack.auto: false
+    region.static: ap-northeast-2
+
     
 ---
 

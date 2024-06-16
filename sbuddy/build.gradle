@@ -31,6 +31,14 @@ dependencies {
 	// mysql
 	implementation 'com.mysql:mysql-connector-j'
 
+	// aws s3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+	
+	// commons-io
+	implementation 'org.apache.commons:commons-collections4:4.4'
+	
+	// org apache common io 
+	implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 }
 
 tasks.named('test') {

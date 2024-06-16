@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sbuddy.web.auth.AuthMapper">
+	<!-- 이메일 인증번호 생성 -->
+	<insert id="insertEmailAuth" parameterType="HashMap">
+		INSERT INTO EMAIL_AUTH (
+			email
+			, auth_number
+		) values (
+			#{email}
+			, #{auth_number}
+		)
+	</insert>
+	
+	<!-- 이테일 인증번호 확인 -->
+	<select id="countEmailAuth" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+		<if test="auth_number != null and auth_number != ''">
+			AND auth_number = #{auth_number}
+		</if>
+	</select>
+	
+	<!-- 이메일 인증번호 재생성 -->
+	<update id="updateEmailAuth">
+		UPDATE EMAIL_AUTH
+		SET
+			auth_number = #{auth_number}
+		WHERE
+			email = #{email}
+	</update>
+	
+	
+</mapper>

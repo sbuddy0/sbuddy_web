@@ -21,17 +21,25 @@ $("#getDetailBtn").click(function() {
 
 $("#modifyBtn").click(function() {
 	
-	let params = {
+	let data = {
 		idx_member : 2,
-		username: $("#username").val()
+		username: $("#username").val(),
 	}
 	
+	let jsonData = JSON.stringify(data);
+	let blobData = new Blob([jsonData], {type: "application/json"});
+
+	let formData = new FormData();
+
+	formData.append("param", blobData);
+	formData.append("profile", $("#profile")[0].files[0]);	
+
 	fetch("/api/v1/mypage/modify/info", {
 		method: "POST",
-		body: JSON.stringify(params),
+		body: formData,      
 		headers: {
-            "content-type": "application/json",
-        },
+           //"content-type": "multipart/form-data",
+        }, 
 	})
 	.then(result => {
 		console.log(result.json());

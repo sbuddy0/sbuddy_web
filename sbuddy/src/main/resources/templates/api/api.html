@@ -1,13 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>api test</h1>
-	<button id="btn">테스트</button>
-</body>
-<script src="/assets/js/jquery-3.7.1.min.js"></script>
-<script src="/js/api/api.js"></script>
+	<head>
+		<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<h1>api test</h1>
+		<div class="card">
+			<div class="card-body">
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/login</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>id</label>
+					</div>
+					<div>
+						<input type="text">
+						<label>password</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/join/email/auth</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>email</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					<p>asdf</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button id="btn">테스트</button>
+	</body>
+	<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/jquery-3.7.1.min.js"></script>
+	<script src="/js/api/api.js"></script>
 </html>
