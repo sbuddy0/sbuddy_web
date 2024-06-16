@@ -1,20 +1,13 @@
 const promise = {
 	fetch: async function(url_v, data_v, method) {
-		const response = await fetch(url_v, {
+		return await fetch(url_v, {
 			method: method,
 			headers: {
 				"content-type": "application/json",
 			},
 			body: JSON.stringify(data_v),
-		})
-		.then(data => {
-			console.log(data);
-		})
-		.catch(error => {
-			
 		});
 	}
-	
 }
 
 window.onload = function() {
@@ -25,16 +18,22 @@ window.onload = function() {
 		let param_v = {};
 		
 		param_o = evo.closest(".card").find(".parameter")
-		let length = param_o.find("div").length;
 		
+		let length = param_o.find("div input").length;
+		let label_o =  $(param_o.find("label"));
+	
 		for(let i=0; i<length; i++) {
-			let label_v = $(param_o.find("label")[i]).text();
+			let label_v = $(label_o[i]).text();
 			let value_v = param_o.find("input")[i].value;
 			
 			param_v[label_v] = value_v;
 		}
+		console.log(param_v);
 		
-		const data = await promise.fetch(url_v, param_v, "POST");
+		const response = await promise.fetch(url_v, param_v, "POST");
+		const result = await response.json();
+		
+		$(param_o.next()).find(".result pre").html(JSON.stringify(result, null, 2));
 	});
 }
 

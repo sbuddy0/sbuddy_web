@@ -1,0 +1,34 @@
+Configutation:
+  name: Default
+  status: warn
+
+  Properties:
+    Property:
+    - name: "log-path"
+      value: "./logs"
+    - name: pattern
+      value: "%highlight{[%-5level]}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=cyan, DEBUG=green} %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red,
+            ERROR=red, INFO=green, DEBUG=blue, TRACE=bg_yellow} [%C] %style{[%t]}{yellow}- %m%n"
+
+          
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: Console_Appender
+#        - ref: RollingFile_Appender
+#        - ref: File_Appender
+    Logger:
+      - name: com.sbuddy.web
+        additivity: false
+        level: debug
+        AppenderRef:
+          - ref: Console_Appender
+#          - ref: File_Appender

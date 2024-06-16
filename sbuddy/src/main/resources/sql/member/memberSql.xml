@@ -11,7 +11,7 @@
 	<!-- ##### 회원가입 ##### -->
 	
 	<!-- 아이디(이메일) 중복체크 -->
-	<select id="checkMemberId" parameterType="HashMap" resultType="HashMap">
+	<select id="duplicateMember" parameterType="HashMap" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
@@ -30,7 +30,7 @@
 			, email
 		) VALUES (
 			#{id}
-			, #{password}
+			, #{encryptPassword}
 			, #{username}
 			, #{email}
 		)

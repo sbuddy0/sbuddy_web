@@ -5,23 +5,23 @@
 	<insert id="insertEmailAuth" parameterType="HashMap">
 		INSERT INTO EMAIL_AUTH (
 			email
-			, auth_number
+			, auth_code
 		) values (
 			#{email}
-			, #{auth_number}
+			, #{auth_code}
 		)
 	</insert>
 	
 	<!-- 이테일 인증번호 확인 -->
-	<select id="countEmailAuth" parameterType="HashMap">
+	<select id="countEmailAuth" parameterType="HashMap" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
 			EMAIL_AUTH
 		WHERE
 			email = #{email}
-		<if test="auth_number != null and auth_number != ''">
-			AND auth_number = #{auth_number}
+		<if test="auth_code != null and auth_code != ''">
+			AND auth_code = #{auth_code}
 		</if>
 	</select>
 	
@@ -29,7 +29,7 @@
 	<update id="updateEmailAuth">
 		UPDATE EMAIL_AUTH
 		SET
-			auth_number = #{auth_number}
+			auth_code = #{auth_code}
 		WHERE
 			email = #{email}
 	</update>

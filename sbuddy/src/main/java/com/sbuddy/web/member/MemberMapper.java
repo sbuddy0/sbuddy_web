@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-	public Map<String, Object> joinMember(Map<String, Object> param);
+	public int duplicateMember(Map<String, Object> param);
+	
+	public int joinMember(Map<String, Object> param);
 }
