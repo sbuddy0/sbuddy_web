@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 API 테스트</title>
+<style type="text/css">
+div {
+	padding-bottom : 20px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<h1>게시글 API 테스트</h1>
+	</div>
+	<div>
+		<p>1. 게시글 작성</p>
+		<form method="post">
+			<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
+			<br/><br/>
+			<textarea id="board" name="editordata"></textarea>
+			<br/>
+			<label>키워드 </label>
+			<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
+			<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
+			<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
+			<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
+			<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
+			<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
+			<br/><br/>
+		</form>
+		<button id="postingBtn">작성</button>
+	</div>
+	<div>
+		<p>2. 내 정보 수정</p>
+		<form action="#" enctype="multipart/form-data">
+			<label for="username">닉네임: </label><input type="text" id="username"/>
+			<label for="profile">프로필 사진: </label><input type="file" id="profile"/>
+			<button id="modifyBtn">수정</button>
+		</form>
+	</div>
+	<div>
+		<p>3. 키워드 수정</p>
+		<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
+		<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
+		<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
+		<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
+		<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
+		<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
+		<br/><br/>
+		<button id="keywordBtn">수정</button>
+	</div>
+</body>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/summernote/summernote-lite.js"></script>
+<script src="/assets/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/assets/summernote/summernote-lite.css">
+<script src="/js/api/postApi.js"></script>
+</html>
