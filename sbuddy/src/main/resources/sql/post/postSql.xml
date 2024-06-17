@@ -48,4 +48,43 @@
 		)
 	</insert>
 
+	<!-- 내 게시글 -->
+	<select id="getMyPostList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_post
+			, title
+			, content
+			, view
+			, upload_date
+		FROM
+			POST
+		WHERE
+			idx_member = #{idx_member}
+	</select>
+	
+	<!-- 게시글 별 키워드 -->
+	<select id="getPostKeyword" parameterType="HashMap">
+		SELECT
+			  k.idx AS idx_keyword 
+			, k.code 
+			, k.keyword 
+			, pk.idx_post 
+		FROM
+			POST_KEYWORD pk 
+		JOIN KEYWORD k 
+		ON k.idx = pk.idx_keyword 
+		WHERE
+			pk.idx_post = #{idx_post}
+	</select>
+	
+	<!-- 글 삭제 -->
+	<update id="deletePost" parameterType="HashMap">
+		UPDATE POST
+		SET 
+			  delete_yn = 'Y'
+			, update_data = NOW()
+		WHERE
+			idx = #{idx_post}
+	</update>
+	
 </mapper>

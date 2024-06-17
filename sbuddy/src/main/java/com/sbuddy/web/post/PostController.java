@@ -27,4 +27,27 @@ public class PostController {
 		return postService.writePost(param);
 	}
 	
+	/**
+	 * 내 게시글
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/my/list")
+	public Map<String, Object> getMyPostList(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getMyPostList(param);
+	}
+	
+	/**
+	 * 글 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/delete")
+	public Map<String, Object> deletePost(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.deletePost(param);
+	}
 }

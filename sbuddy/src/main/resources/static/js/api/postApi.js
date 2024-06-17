@@ -9,6 +9,9 @@ $(document).ready(function() {
 	});
 });
 
+/**
+ * 글 작성
+ */
 $("#postingBtn").click(function() {
 	
 	let keywords = [];
@@ -39,4 +42,51 @@ $("#postingBtn").click(function() {
 		
 	});
 
+});
+
+/**
+ * 내 게시글
+ */
+$("#getMyPostBtn").click(function() {
+	let params = {
+		idx_member : 2,
+	}
+
+	fetch("/api/v1/post/my/list", {
+		method: "POST",
+		body: JSON.stringify(params),
+		headers: {
+            "content-type": "application/json",
+        },
+	})
+	.then(result => {
+		console.log(result.json());
+	})
+	.catch(error => {
+		
+	});
+});
+
+/**
+ * 글 삭제
+ */
+$("#deletetBtn").click(function() {
+	let params = {
+		idx_member : 2,
+		idx_post : $("#deletePost").val()
+	}
+
+	fetch("/api/v1/post/delete", {
+		method: "POST",
+		body: JSON.stringify(params),
+		headers: {
+            "content-type": "application/json",
+        },
+	})
+	.then(result => {
+		console.log(result.json());
+	})
+	.catch(error => {
+		
+	});
 });

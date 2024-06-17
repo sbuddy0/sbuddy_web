@@ -1,5 +1,6 @@
 package com.sbuddy.web.post;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,4 +50,51 @@ public class PostService {
 		return ResponseUtil.success();
 	}
 	
+	
+	/**
+	 * 내 게시글
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getMyPostList (Map<String, Object> param) throws Exception {
+		
+		// 글
+		List<Map<String, Object>> list = postMapper.getMyPostList(param);
+		
+		// 키워드
+		Map<String, Object> kparam = new HashMap<>();
+		for(Map<String, Object> post : list) {
+			kparam.put("idx_post", post.get("idx_post"));
+
+			List<Map<String, Object>> keywords = postMapper.getPostKeyword(kparam);
+			post.put("keyword", keywords);
+		}
+		
+		/**
+		 * TODO
+		 * 파일 매핑
+		 */
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", list);
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 글 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> deletePost (Map<String, Object> param) throws Exception {
+		
+		if(postMapper.deletePost(param) <=0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		return ResponseUtil.success();
+	}
 }
