@@ -1,47 +1,3 @@
-$(document).ready(function() {
-	$("#board").summernote({
-		  height: 200,            
-		  minHeight: 100,             
-		  maxHeight: 300, 
-		  focus: true,
-		  lang: "ko-KR",
-		  placeholder: "내용을 작성해 주세요.",
-		  callbacks: {	
-		  	  onImageUpload : function(files) {
-				  uploadSummernoteImageFile(files[0],this);
-			  },
-			  /*
-			  onPaste: function(e) {
-				  let clipboardData = e.originalEvent.clipboardData;
-				  if(clipboardData && clipboardData.items && clipboardData.items.length) {
-				      let item = clipboardData.items[0];
-					  if(item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-						  e.preventDefault();
-					  }
-				  }
-			  }
-			  */
-		  }
-	});
-	
-	/*
-	function uploadSummernoteImageFile(file, editor) {
-		data = new FormData();
-		data.append("file", file);
-		$.ajax({
-			data : data,
-			type : "POST",
-			url : "/uploadSummernoteImageFile",
-			contentType : false,
-			processData : false,
-			success : function(data) {
-            	//항상 업로드된 파일의 url이 있어야 한다.
-				$(editor).summernote('insertImage', data.url);
-			}
-		});
-	}
-	*/
-});
 
 /**
  * 글 작성
@@ -58,7 +14,7 @@ $("#postingBtn").click(function() {
 	let params = {
 		idx_member : 2,
 		title : $("#title").val(),
-		content : $('#board').summernote("code"),
+		content : $("#board").val(),
 		keyword : keywords
 	}
 	

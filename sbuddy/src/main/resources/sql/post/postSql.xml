@@ -77,6 +77,21 @@
 			pk.idx_post = #{idx_post}
 	</select>
 	
+	<!-- 게시글 별 파일 -->
+	<select id="getPostFile" parameterType="HashMap">
+		SELECT
+			  p.idx AS idx_post
+			, pf.idx AS idx_post_file
+			, pf.file_name
+			, pf.file_path
+		FROM
+			POST_File pf 
+		JOIN POST p 
+		ON p.idx = pf.idx_post
+		WHERE
+			pk.idx_post = #{idx_post}
+	</select>
+	
 	<!-- 글 삭제 -->
 	<update id="deletePost" parameterType="HashMap">
 		UPDATE POST

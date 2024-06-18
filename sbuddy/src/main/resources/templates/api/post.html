@@ -18,8 +18,10 @@ div {
 		<form method="post">
 			<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
 			<br/><br/>
-			<textarea id="board" name="editordata"></textarea>
-			<br/>
+			<textarea id="board" rows="5" placeholder="내용을 입력해 주세요."></textarea>
+			<br/><br/>
+			<input type="file" id="file"/>
+			<br/><br/>
 			<label>키워드 </label>
 			<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
 			<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
@@ -39,17 +41,6 @@ div {
 		<p>3. 글 삭제</p>
 		<input type="text" id="deletePost" placeholder="글번호"/>
 		<button id="deleteBtn">삭제</button>
-	</div>
-	<div>
-		<p>3. 키워드 수정</p>
-		<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
-		<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
-		<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
-		<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
-		<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
-		<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
-		<br/><br/>
-		<button id="keywordBtn">수정</button>
 	</div>
 </body>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>

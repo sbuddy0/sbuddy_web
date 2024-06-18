@@ -22,6 +22,9 @@ public interface PostMapper {
 	
 	// 게시글 키워드
 	public List<Map<String, Object>> getPostKeyword(Map<String, Object> param);
+
+	// 게시글 파일
+	public List<Map<String, Object>> getPostFile(Map<String, Object> param);
 	
 	// 글 삭제
 	public int deletePost(Map<String, Object> param);

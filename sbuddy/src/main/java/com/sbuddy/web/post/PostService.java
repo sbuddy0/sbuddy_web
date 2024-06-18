@@ -49,7 +49,9 @@ public class PostService {
 		
 		// 파일 업로드
 		String filePath = s3.uploadFile(mFile);
-		
+		param.put("file_name", mFile.getOriginalFilename());
+		param.put("file_size", mFile.getBytes());
+		param.put("file_path", filePath);
 		
 		return ResponseUtil.success();
 	}
@@ -66,19 +68,18 @@ public class PostService {
 		// 글
 		List<Map<String, Object>> list = postMapper.getMyPostList(param);
 		
-		// 키워드
-		Map<String, Object> kparam = new HashMap<>();
+		Map<String, Object> postParam = new HashMap<>();
 		for(Map<String, Object> post : list) {
-			kparam.put("idx_post", post.get("idx_post"));
+			postParam.put("idx_post", post.get("idx_post"));
 
-			List<Map<String, Object>> keywords = postMapper.getPostKeyword(kparam);
+			// 키워드 매핑
+			List<Map<String, Object>> keywords = postMapper.getPostKeyword(postParam);
 			post.put("keyword", keywords);
+			
+			// 파일 매핑
+			List<Map<String, Object>> files = postMapper.getPostFile(postParam);
+			post.put("file", files);
 		}
-		
-		/**
-		 * TODO
-		 * 파일 매핑
-		 */
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", list);
