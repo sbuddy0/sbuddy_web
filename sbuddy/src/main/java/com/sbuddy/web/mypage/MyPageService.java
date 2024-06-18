@@ -1,7 +1,5 @@
 package com.sbuddy.web.mypage;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.sbuddy.web.file.S3Service;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
@@ -23,8 +19,8 @@ public class MyPageService {
 	@Autowired
 	private MypageMapper mypageMapper;
 	
-	private AmazonS3 S3Cli;
-	private AmazonS3Client s3client;
+	@Autowired
+	private S3Service s3;
 	
 	@Value("${cloud.aws.s3.bucket}")
 	private String BUCKET;
@@ -51,7 +47,7 @@ public class MyPageService {
 	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
 		// 파일
-		String filePath = uploadFile(mFile);
+		String filePath = s3.uploadFile(mFile);
 		param.put("profile", filePath);
 				
 		if(mypageMapper.modifyInfo(param) > 0) {
@@ -59,35 +55,6 @@ public class MyPageService {
 		} else {
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}		
-	}
-	
-	/**
-	 * 파일 S3 업로드
-	 * @param mFile
-	 * @return
-	 * @throws Exception
-	 */
-	public String uploadFile(MultipartFile mFile) throws Exception {
-		String fileName = mFile.getOriginalFilename();
-		String S3FilePath = "member" + File.separator +fileName;
-
-		InputStream inputStream;
-		inputStream = mFile.getInputStream();
-		
-		try {
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(mFile.getSize());
-			metadata.setContentType(mFile.getContentType());
-			
-			s3client.putObject(BUCKET, fileName, inputStream, metadata);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			inputStream.close();
-		}
-		
-        return s3client.getUrl(BUCKET, fileName).toString();
 	}
 	
 	

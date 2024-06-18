@@ -5,8 +5,42 @@ $(document).ready(function() {
 		  maxHeight: 300, 
 		  focus: true,
 		  lang: "ko-KR",
-		  placeholder: "내용을 작성해 주세요."
+		  placeholder: "내용을 작성해 주세요.",
+		  callbacks: {	
+		  	  onImageUpload : function(files) {
+				  uploadSummernoteImageFile(files[0],this);
+			  },
+			  /*
+			  onPaste: function(e) {
+				  let clipboardData = e.originalEvent.clipboardData;
+				  if(clipboardData && clipboardData.items && clipboardData.items.length) {
+				      let item = clipboardData.items[0];
+					  if(item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+						  e.preventDefault();
+					  }
+				  }
+			  }
+			  */
+		  }
 	});
+	
+	/*
+	function uploadSummernoteImageFile(file, editor) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadSummernoteImageFile",
+			contentType : false,
+			processData : false,
+			success : function(data) {
+            	//항상 업로드된 파일의 url이 있어야 한다.
+				$(editor).summernote('insertImage', data.url);
+			}
+		});
+	}
+	*/
 });
 
 /**
@@ -28,11 +62,20 @@ $("#postingBtn").click(function() {
 		keyword : keywords
 	}
 	
+	
+	let jsonData = JSON.stringify(params);
+	let blobData = new Blob([jsonData], {type: "application/json"});
+
+	let formData = new FormData();
+
+	formData.append("param", blobData);
+	formData.append("file", $("#file")[0].files[0]);	
+
 	fetch("/api/v1/post/write", {
 		method: "POST",
-		body: JSON.stringify(params),
+		body: formData,
 		headers: {
-            "content-type": "application/json",
+            //"content-type": "application/json",
         },
 	})
 	.then(result => {

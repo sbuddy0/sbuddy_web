@@ -25,7 +25,7 @@ mybatis:
 cloud:
   aws:
     stack.auto: false
-    region.static: ap-northeast-2
+    region.static: ap-southeast-2
     s3:
       bucket: sbuddy-bucket
     

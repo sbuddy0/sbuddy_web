@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sbuddy.web.file.S3Service;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
@@ -17,13 +19,16 @@ public class PostService {
 	@Autowired
 	private PostMapper postMapper;
 	
+	@Autowired
+	private S3Service s3;
+	
 	/**
 	 * 게시글 작성
 	 * @param param
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> writePost (Map<String, Object> param) throws Exception {
+	public Map<String, Object> writePost (Map<String, Object> param, MultipartFile mFile) throws Exception {
 
 		// 게시글 insert
 		if(postMapper.writePost(param) <= 0) {
@@ -42,10 +47,9 @@ public class PostService {
 			}
 		}
 		
-		/**
-		 * TODO
-		 * 파일 업로드
-		 */
+		// 파일 업로드
+		String filePath = s3.uploadFile(mFile);
+		
 		
 		return ResponseUtil.success();
 	}

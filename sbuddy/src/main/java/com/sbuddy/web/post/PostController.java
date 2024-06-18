@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/post")
@@ -22,9 +24,9 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/write")
-	public Map<String, Object> writePost (@RequestBody Map<String, Object> param) throws Exception {
+	public Map<String, Object> writePost (@RequestPart Map<String, Object> param, @RequestPart MultipartFile file) throws Exception {
 		
-		return postService.writePost(param);
+		return postService.writePost(param, file);
 	}
 	
 	/**
