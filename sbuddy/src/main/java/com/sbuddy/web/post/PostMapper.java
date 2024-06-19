@@ -28,4 +28,7 @@ public interface PostMapper {
 	
 	// 글 삭제
 	public int deletePost(Map<String, Object> param);
+	
+	// 북마크 리스트
+	public List<Map<String, Object>> getBookmarkList(Map<String, Object> param);
 }

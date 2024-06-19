@@ -52,4 +52,17 @@ public class PostController {
 		
 		return postService.deletePost(param);
 	}
+	
+	/**
+	 *  북마크 리스트
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/bookmark/list")
+	public Map<String, Object> getBookmarkList(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getBookmarkList(param);
+	}
+	
 }

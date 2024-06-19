@@ -78,6 +78,62 @@ public class PostService {
 		// 글
 		List<Map<String, Object>> list = postMapper.getMyPostList(param);
 		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", mappingPost(list));
+		
+		return ResponseUtil.success(data);
+	}
+	
+
+	/**
+	 * 글 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> deletePost (Map<String, Object> param) throws Exception {
+		
+		if(postMapper.deletePost(param) <=0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+
+		// 파일 삭제
+		List<Map<String, Object>> list = postMapper.getPostFile(param);
+		for(Map<String, Object> file : list) {
+			String fileName = String.valueOf(file.get("file_name"));
+			
+			s3.deleteFile("post/" + param.get("idx_post") + "/" +  fileName);
+		}
+
+		return ResponseUtil.success();
+	}
+	
+
+	/**
+	 * 북마크 리스트
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getBookmarkList(Map<String, Object> param) throws Exception {
+				
+		List<Map<String, Object>> list = postMapper.getBookmarkList(param);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", mappingPost(list));
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 게시글과 키워드, 파일 매핑
+	 * @param list
+	 * @return
+	 * @throws Exception
+	 */
+	private List<Map<String, Object>>  mappingPost(List<Map<String, Object>> list) throws Exception {
+		
 		Map<String, Object> postParam = new HashMap<>();
 		for(Map<String, Object> post : list) {
 			postParam.put("idx_post", post.get("idx_post"));
@@ -91,25 +147,6 @@ public class PostService {
 			post.put("file", files);
 		}
 		
-		Map<String, Object> data = new HashMap<>();
-		data.put("list", list);
-		
-		return ResponseUtil.success(data);
-	}
-	
-	
-	/**
-	 * 글 삭제
-	 * @param param
-	 * @return
-	 * @throws Exception
-	 */
-	public Map<String, Object> deletePost (Map<String, Object> param) throws Exception {
-		
-		if(postMapper.deletePost(param) <=0) {
-			return ResponseUtil.error(ResponseCode.FAIL);
-		}
-		
-		return ResponseUtil.success();
+		return list;
 	}
 }
