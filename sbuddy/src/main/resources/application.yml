@@ -8,11 +8,26 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+      location: C:\\Temp\\upload
+  config:
+    import: classpath:/aws.yml
     
 mybatis:
   mapper-locations: sql/**/*.xml
   configuration:
     call-setters-on-nulls: true
+    
+    
+cloud:
+  aws:
+    stack.auto: false
+    region.static: ap-southeast-2
+    s3:
+      bucket: sbuddy-bucket
     
 ---
 

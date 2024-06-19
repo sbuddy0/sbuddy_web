@@ -8,6 +8,7 @@
 			  id
 			, username
 			, email
+			, profile
 		FROM
 			MEMBER
 		WHERE
@@ -21,8 +22,12 @@
 		UPDATE
 			MEMBER
 		SET 
+			update_date = now()
 			<if test="username != null and username != ''">
-				username = #{username}
+				, username = #{username}
+			</if>	
+			<if test="profile != null and profile != ''">
+				, profile = #{profile}
 			</if>	
 		WHERE 
 			idx = #{idx_member}

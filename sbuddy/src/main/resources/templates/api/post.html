@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 API 테스트</title>
+<style type="text/css">
+div {
+	padding-bottom : 20px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<h1>게시글 API 테스트</h1>
+	</div>
+	<div>
+		<p>1. 게시글 작성</p>
+		<form method="post">
+			<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
+			<br/><br/>
+			<textarea id="board" rows="5" placeholder="내용을 입력해 주세요."></textarea>
+			<br/><br/>
+			<input type="file" id="file"/>
+			<br/><br/>
+			<label>키워드 </label>
+			<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
+			<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
+			<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
+			<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
+			<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
+			<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
+			<br/><br/>
+		</form>
+		<button id="postingBtn">작성</button>
+	</div>
+	<div>
+		<p>2. 내 게시글</p>
+		<button id="getMyPostBtn">내 게시글</button>
+	</div>
+	<div>
+		<p>3. 글 삭제</p>
+		<input type="text" id="deletePost" placeholder="글번호"/>
+		<button id="deleteBtn">삭제</button>
+	</div>
+</body>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/assets/summernote/summernote-lite.js"></script>
+<script src="/assets/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="/assets/summernote/summernote-lite.css">
+<script src="/js/api/postApi.js"></script>
+</html>

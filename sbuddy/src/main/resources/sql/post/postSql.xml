@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sbuddy.web.post.PostMapper">
+	
+	<!-- 게시글 작성 -->
+	<insert id="writePost" parameterType="HashMap">
+		INSERT INTO POST (
+			  idx_member
+			, title
+			, content
+			, upload_date
+			, delete_yn
+		) VALUES (
+			  #{idx_member}
+			, #{title}
+			, #{content}
+			, NOW()
+			, 'N'
+		)
+		<selectKey keyProperty="idx" resultType="int" order="AFTER">
+	        SELECT max(idx) FROM POST
+	    </selectKey>
+	</insert>
+
+	<!-- 게시글 키워드 -->
+	<insert id="writePostKeyword" parameterType="HashMap">
+		INSERT INTO POST_KEYWORD (
+			  idx_post
+			, idx_keyword
+		) VALUES (
+			  #{idx_post}
+			, #{idx_keyword}
+		)
+	</insert>
+
+	<!-- 게시글 파일 -->
+	<insert id="writePostFile" parameterType="HashMap">
+		INSERT INTO POST_FILE (
+			  idx_post
+			, file_name
+			, file_path
+			, file_size
+		) VALUES (
+			  #{idx_post}
+			, #{file_name}
+			, #{file_path}
+			, #{file_size}
+		)
+	</insert>
+
+	<!-- 내 게시글 -->
+	<select id="getMyPostList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_post
+			, title
+			, content
+			, view
+			, upload_date
+		FROM
+			POST
+		WHERE
+			idx_member = #{idx_member}
+	</select>
+	
+	<!-- 게시글 별 키워드 -->
+	<select id="getPostKeyword" parameterType="HashMap">
+		SELECT
+			  k.idx AS idx_keyword 
+			, k.code 
+			, k.keyword 
+			, pk.idx_post 
+		FROM
+			POST_KEYWORD pk 
+		JOIN KEYWORD k 
+		ON k.idx = pk.idx_keyword 
+		WHERE
+			pk.idx_post = #{idx_post}
+	</select>
+	
+	<!-- 게시글 별 파일 -->
+	<select id="getPostFile" parameterType="HashMap">
+		SELECT
+			  p.idx AS idx_post
+			, pf.idx AS idx_post_file
+			, pf.file_name
+			, pf.file_path
+		FROM
+			POST_File pf 
+		JOIN POST p 
+		ON p.idx = pf.idx_post
+		WHERE
+			pk.idx_post = #{idx_post}
+	</select>
+	
+	<!-- 글 삭제 -->
+	<update id="deletePost" parameterType="HashMap">
+		UPDATE POST
+		SET 
+			  delete_yn = 'Y'
+			, update_data = NOW()
+		WHERE
+			idx = #{idx_post}
+	</update>
+	
+</mapper>

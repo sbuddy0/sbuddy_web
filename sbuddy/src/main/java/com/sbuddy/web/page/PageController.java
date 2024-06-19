@@ -17,4 +17,10 @@ public class PageController {
 		
 		return "/api/mypage";
 	}
+	
+	@GetMapping(value = {"/post"})
+	public String post() {
+		
+		return "/api/post";
+	}
 }

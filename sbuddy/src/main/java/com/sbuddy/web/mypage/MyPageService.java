@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sbuddy.web.file.S3Service;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
@@ -15,6 +18,12 @@ public class MyPageService {
 	
 	@Autowired
 	private MypageMapper mypageMapper;
+	
+	@Autowired
+	private S3Service s3;
+	
+	@Value("${cloud.aws.s3.bucket}")
+	private String BUCKET;
 
 	/**
 	 * 마이페이지 내 정보 가져오기
@@ -35,14 +44,19 @@ public class MyPageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> modifyInfo (Map<String, Object> param) throws Exception {
+	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
+		// 파일
+		String filePath = s3.uploadFile(mFile);
+		param.put("profile", filePath);
+				
 		if(mypageMapper.modifyInfo(param) > 0) {
 			return ResponseUtil.success();
 		} else {
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}		
 	}
+	
 	
 	/**
 	 * 키워드 수정
