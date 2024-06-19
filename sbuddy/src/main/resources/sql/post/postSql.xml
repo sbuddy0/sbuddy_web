@@ -85,11 +85,11 @@
 			, pf.file_name
 			, pf.file_path
 		FROM
-			POST_File pf 
+			POST_FILE pf 
 		JOIN POST p 
 		ON p.idx = pf.idx_post
 		WHERE
-			pk.idx_post = #{idx_post}
+			pf.idx_post = #{idx_post}
 	</select>
 	
 	<!-- 글 삭제 -->

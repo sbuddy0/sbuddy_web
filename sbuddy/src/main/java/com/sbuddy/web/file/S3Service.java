@@ -29,9 +29,6 @@ public class S3Service {
 	@Value("${cloud.aws.s3.bucket}")
 	private String BUCKET;
 
-//	@Value("${file.path.upload.s3}")
-//	private String FILE_PATH_UPLOAD_S3;
-    
 	private AmazonS3 s3Client;
     
 	@Bean
@@ -48,27 +45,34 @@ public class S3Service {
 	/**
 	 * 파일 업로드
 	 * @param mFile
+	 * @param filePath
 	 * @return
 	 * @throws Exception
 	 */
-	public String uploadFile(MultipartFile mFile) throws Exception {
+	public String uploadFile(MultipartFile mFile, String filePath) throws Exception {
 		InputStream inputStream;
 		inputStream = mFile.getInputStream();
-
-		String fileName = mFile.getOriginalFilename();
 
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(mFile.getSize());
 		metadata.setContentType(mFile.getContentType());
 		try {
-			s3Client.putObject(BUCKET, fileName, inputStream, metadata);
+			s3Client.putObject(BUCKET, filePath, inputStream, metadata);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			inputStream.close();
 		}
 		
-		return s3Client.getUrl(BUCKET, fileName).toString();
+		return s3Client.getUrl(BUCKET, filePath).toString();
 	}
 
+	/**
+	 * 파일 삭제
+	 * @param filePath
+	 * @throws Exception
+	 */
+	public void deleteFile(String filePath) throws Exception {
+		s3Client.deleteObject(BUCKET, filePath);
+	}
 }

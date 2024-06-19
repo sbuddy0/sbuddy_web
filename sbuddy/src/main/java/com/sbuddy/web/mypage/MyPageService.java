@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,9 +21,6 @@ public class MyPageService {
 	@Autowired
 	private S3Service s3;
 	
-	@Value("${cloud.aws.s3.bucket}")
-	private String BUCKET;
-
 	/**
 	 * 마이페이지 내 정보 가져오기
 	 * @param param
@@ -47,12 +43,15 @@ public class MyPageService {
 	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
 		// 파일
-		String filePath = s3.uploadFile(mFile);
-		param.put("profile", filePath);
+		String filePath = "member/" + param.get("idx_member") + "/";
+		String fileName = mFile.getOriginalFilename();
+		String uploadPath = s3.uploadFile(mFile, filePath + fileName);
+		param.put("profile", uploadPath);
 				
 		if(mypageMapper.modifyInfo(param) > 0) {
 			return ResponseUtil.success();
 		} else {
+			s3.deleteFile(filePath + fileName);
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}		
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sbuddy.web.file.S3Service;
@@ -14,6 +15,7 @@ import com.sbuddy.web.vo.ResponseCode;
 
 @Service
 @SuppressWarnings("unchecked")
+@Transactional
 public class PostService {
 	
 	@Autowired
@@ -48,10 +50,18 @@ public class PostService {
 		}
 		
 		// 파일 업로드
-		String filePath = s3.uploadFile(mFile);
-		param.put("file_name", mFile.getOriginalFilename());
-		param.put("file_size", mFile.getBytes());
-		param.put("file_path", filePath);
+		String filePath = "post/" + param.get("idx_post") + "/";
+		String fileName = mFile.getOriginalFilename();
+		String uploadPath = s3.uploadFile(mFile, filePath + fileName);
+		
+		param.put("file_name", fileName);
+		param.put("file_size", mFile.getSize());
+		param.put("file_path", uploadPath);
+		
+		if(postMapper.writePostFile(param) <= 0) {
+			s3.deleteFile(filePath + fileName);
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
 		
 		return ResponseUtil.success();
 	}
