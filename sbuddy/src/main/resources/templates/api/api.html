@@ -9,6 +9,7 @@
 		<h1>api test</h1>
 		<div class="card">
 			<div class="card-body">
+				<p><b>1. 로그인</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
 				url : <span>/api/v1/login</span>
 			</div>
@@ -26,20 +27,16 @@
 				</div>
 				<div class="col-6">
 					<div class="card result">
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
+						<pre></pre>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="card">
 			<div class="card-body">
+				<p><b>2. 회원가입 이메일 인증 보내기</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/join/email/auth</span>
+				url : <span>/api/v1/join/email/send</span>
 			</div>
 			<div class="card-body" style="display: flex;">
 				<div class="col-6 parameter">
@@ -51,18 +48,62 @@
 				</div>
 				<div class="col-6">
 					<div class="card result">
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
-					<p>asdf</p>
+						<pre></pre>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button id="btn">테스트</button>
+		<div class="card">
+			<div class="card-body">
+				<p><b>3. 회원가입 이메일 인증확인</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/join/email/auth</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>email</label>
+						<input type="text">
+						<label>auth_code</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<p><b>4. 회원가입</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/join</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>username</label>
+						<input type="text">
+						<label>email</label>
+						<input type="text">
+						<label>password</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
+	<footer style="height: 200px;">
+	</footer>
 	<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/assets/js/jquery-3.7.1.min.js"></script>
 	<script src="/js/api/api.js"></script>

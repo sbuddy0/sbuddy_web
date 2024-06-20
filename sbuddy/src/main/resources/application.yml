@@ -20,8 +20,7 @@ mybatis:
   mapper-locations: sql/**/*.xml
   configuration:
     call-setters-on-nulls: true
-    
-    
+        
 cloud:
   aws:
     stack.auto: false
@@ -41,6 +40,21 @@ spring:
     url: jdbc:mysql://15.164.43.222:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
     username: sbuddev
     password: sbuddev12#$
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: leenomt@chungbuk.ac.kr
+    password: xosw ujub yqpi notz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+            
+logging:
+  config: classpath:log4j2_local.yml
     
     
 ---
@@ -55,3 +69,18 @@ spring:
     url: jdbc:mysql://15.164.43.222:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
     username: sbuddev
     password: sbuddev12#$
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: leenomt
+    password: xosw ujub yqpi notz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+            
+logging:
+  config: classpath:log4j2_dev.yml
