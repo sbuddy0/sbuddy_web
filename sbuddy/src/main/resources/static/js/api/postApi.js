@@ -89,3 +89,51 @@ $("#deletetBtn").click(function() {
 		
 	});
 });
+
+/**
+ * 텍스트 검색
+ */
+$("#searchTextBtn").click(function() {
+	let params = {
+		idx_member : 2,
+		search : $("#search_text").val()
+	}
+
+	fetch("/api/v1/post/search/text", {
+		method: "POST",
+		body: JSON.stringify(params),
+		headers: {
+            "content-type": "application/json",
+        },
+	})
+	.then(result => {
+		console.log(result.json());
+	})
+	.catch(error => {
+		
+	});
+});
+
+/**
+ * 키워드 검색
+ */
+$("#searchKeywordBtn").click(function() {
+	let params = {
+		idx_member : 2,
+		idx_keyword : $("#search_keyword").val()
+	}
+
+	fetch("/api/v1/post/search/keyword", {
+		method: "POST",
+		body: JSON.stringify(params),
+		headers: {
+            "content-type": "application/json",
+        },
+	})
+	.then(result => {
+		console.log(result.json());
+	})
+	.catch(error => {
+		
+	});
+});

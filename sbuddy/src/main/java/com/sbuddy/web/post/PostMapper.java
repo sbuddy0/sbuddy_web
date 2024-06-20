@@ -31,4 +31,16 @@ public interface PostMapper {
 	
 	// 북마크 리스트
 	public List<Map<String, Object>> getBookmarkList(Map<String, Object> param);
+	
+	// 텍스트 검색
+	public List<Map<String, Object>> searchText(Map<String, Object> param);
+	
+	// 텍스트 검색 개수
+	public int searchTextCnt(Map<String, Object> param);
+	
+	// 키워드 검색
+	public List<Map<String, Object>> searchKeyword(Map<String, Object> param);
+
+	// 키워드 검색 개수
+	public int searchKeywordCnt(Map<String, Object> param);
 }

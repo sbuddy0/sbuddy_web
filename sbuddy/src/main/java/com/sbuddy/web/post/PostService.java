@@ -127,6 +127,50 @@ public class PostService {
 	
 	
 	/**
+	 * 텍스트 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> searchText(Map<String, Object> param) throws Exception {
+		
+		// 글
+		List<Map<String, Object>> list = postMapper.searchText(param);
+		
+		// 개수
+		int cnt = postMapper.searchTextCnt(param);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", mappingPost(list));
+		data.put("total", cnt);
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 키워드 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> searchKeyword(Map<String, Object> param) throws Exception {
+		
+		// 글
+		List<Map<String, Object>> list = postMapper.searchKeyword(param);
+		
+		// 개수
+		int cnt = postMapper.searchKeywordCnt(param);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", mappingPost(list));
+		data.put("total", cnt);
+			
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
 	 * 게시글과 키워드, 파일 매핑
 	 * @param list
 	 * @return

@@ -60,6 +60,8 @@
 			POST
 		WHERE
 			idx_member = #{idx_member}
+		ORDER BY
+			upload_date DESC
 	</select>
 	
 	<!-- 게시글 별 키워드 -->
@@ -119,7 +121,98 @@
 		ON b.idx_post = p.idx
 		WHERE
 			b.idx_member = #{idx_member}
-		AND p.delete_yn = 'Y'
+		AND p.delete_yn = 'N'
+		ORDER BY
+			p.upload_date DESC
+	</select>
+	
+	<!-- 텍스트 검색 -->
+	<select id="searchText" parameterType="HashMap">
+		SELECT
+			  idx AS idx_post
+			, idx_member
+			, title
+			, content
+			, like_cnt
+			, upload_date
+			, update_date
+		FROM
+			POST
+		WHERE
+			delete_yn = 'N'
+		<if test="search != null and search != ''">
+		AND
+			(
+				title LIKE CONCAT('%', #{search}, '%')
+				OR
+				content LIKE CONCAT('%', #{search}, '%')
+			)
+		</if>
+		ORDER BY
+			upload_date DESC
+	</select>
+	
+	<!-- 텍스트 검색 개수 -->
+	<select id="searchTextCnt" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			POST
+		WHERE
+			delete_yn = 'N'
+		<if test="search != null and search != ''">
+		AND (
+			title LIKE CONCAT('%', #{search}, '%')
+			OR
+			content LIKE CONCAT('%', #{search}, '%')
+		)
+		</if>
+	</select>
+	
+	<!-- 키워드 검색 -->
+	<select id="searchKeyword" parameterType="HashMap">
+		SELECT
+			  p.idx AS idx_post
+			, p.idx_member
+			, p.title
+			, p.content
+			, p.like_cnt
+			, p.upload_date
+			, p.update_date
+		FROM
+			POST p
+		JOIN 
+			POST_KEYWORD pk
+		ON pk.idx_post = p.idx
+		JOIN
+			KEYWORD k
+		ON k.idx = pk.idx_keyword 
+		WHERE
+			p.delete_yn = 'N'
+		AND 
+			k.idx = #{idx_keyword}
+		ORDER BY
+			p.upload_date DESC
+	</select>
+	
+	<!-- 키워드 검색 개수 -->
+	<select id="searchKeywordCnt" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			POST p
+		JOIN 
+			POST_KEYWORD pk
+		ON pk.idx_post = p.idx
+		JOIN
+			KEYWORD k
+		ON k.idx = pk.idx_keyword 
+		WHERE
+			p.delete_yn = 'N'
+		AND 
+			k.idx = #{idx_keyword}
+		ORDER BY
+			p.upload_date DESC
 	</select>
 	
 </mapper>

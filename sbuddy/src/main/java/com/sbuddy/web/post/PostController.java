@@ -65,4 +65,27 @@ public class PostController {
 		return postService.getBookmarkList(param);
 	}
 	
+	/**
+	 *  텍스트 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/search/text")
+	public Map<String, Object> searchText(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.searchText(param);
+	}
+	
+	/**
+	 *  키워드 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/search/keyword")
+	public Map<String, Object> searchKeyword(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.searchKeyword(param);
+	}
 }
