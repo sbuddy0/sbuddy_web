@@ -7,8 +7,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.sbuddy.web.util.CommonUtil;
+
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class MailService {
 	private final JavaMailSender javaMailSender;
 	
 	public String sendMail(String receiver) throws Exception{
-		String authNum = createAuthCode();
+		String authNum = CommonUtil.createRandomCode(8);
 		
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 	
@@ -32,11 +33,4 @@ public class MailService {
 			throw new RuntimeException (e);
 		}
 	}
-	
-	
-	
-	private static String createAuthCode() {
-		return "test";
-	}
-
 }

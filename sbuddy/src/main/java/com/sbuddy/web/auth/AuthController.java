@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbuddy.web.util.CommonUtil;
+
 @RestController
 @RequestMapping("/api/v1")
 public class AuthController {
@@ -22,8 +24,10 @@ public class AuthController {
 	 */
 	@PostMapping("/login")
 	public Map<String, Object> login(@RequestBody Map<String, Object> param) throws Exception {
-		
 		// id, pw 전처리
+		
+		CommonUtil.checkIsNull(param, "id");
+		CommonUtil.checkIsNull(param, "password");
 		
 		return authService.login(param);
 	}
@@ -37,6 +41,10 @@ public class AuthController {
 	@PostMapping("/join")
 	public Map<String, Object> join(@RequestBody Map<String, Object> param) throws Exception {
 		
+		CommonUtil.checkIsNull(param, "username");
+		CommonUtil.checkIsNull(param, "email");
+		CommonUtil.checkIsNull(param, "password");
+		
 		return authService.join(param);
 	}
 	
@@ -48,6 +56,9 @@ public class AuthController {
 	 */
 	@PostMapping("/join/email/send")
 	public Map<String, Object> joinEmailSend(@RequestBody Map<String, Object> param) throws Exception {
+		
+		CommonUtil.checkIsNull(param, "email");
+		
 		return authService.joinEmailSend(param);
 	}
 	
@@ -59,6 +70,9 @@ public class AuthController {
 	 */
 	@PostMapping("/join/email/auth")
 	public Map<String, Object> joinEmailAuth(@RequestBody Map<String, Object> param) throws Exception {
+		
+		CommonUtil.checkIsNull(param, "email");
+		CommonUtil.checkIsNull(param, "auth_code");
 		
 		return authService.joinEmailAuth(param);
 	}

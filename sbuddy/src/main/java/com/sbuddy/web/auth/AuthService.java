@@ -27,9 +27,15 @@ public class AuthService {
 	 * 로그인
 	 * @param param
 	 * @return
+	 * @throws Exception 
 	 */
-	public Map<String, Object> login(Map<String, Object> param) {
+	public Map<String, Object> login(Map<String, Object> param) throws Exception {
 		
+		String password = String.valueOf(param.get("password"));
+		String encryptPassword = SHAUtil.encrypt(password);
+		
+		param.put("hashPassword", encryptPassword);
+		memberMapper.loginMember(param);
 		
 		return ResponseUtil.success(param);
 	}
@@ -46,9 +52,14 @@ public class AuthService {
 		if(memberMapper.duplicateMember(param) == 1) {
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}
+		//2. 인증된 이메일인지 확인
+		if(authMapper.isEmailAuth(param) != 1) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
 		param.put("id", param.get("email"));
 		
-		//2. password 암호화
+		//3. password 암호화
 		String password = String.valueOf(param.get("password"));
 		String encryptPassword = SHAUtil.encrypt(password);
 		
@@ -70,11 +81,10 @@ public class AuthService {
 		String num = mailService.sendMail(String.valueOf(param.get("email")));
 		
 		param.put("auth_code", num);
-		authMapper.insertEmailAuth(param);
 		
 		int result = authMapper.countEmailAuth(param);
 		if(result == 1) {
-			authMapper.updateEmailAuth(param);
+			authMapper.regenEmailAuth(param);
 		} else if(result == 0) {
 			authMapper.insertEmailAuth(param);
 		}
@@ -90,10 +100,10 @@ public class AuthService {
 	public Map<String, Object> joinEmailAuth(Map<String, Object> param) {
 		
 		int result = authMapper.countEmailAuth(param);
-		if(result != 1) { // 인증번호 오류
-			ResponseUtil.error(ResponseCode.FAIL);
-		}
 		
+		if(result != 1) { // 인증번호 오류
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
 		return ResponseUtil.success();
 	}
 }

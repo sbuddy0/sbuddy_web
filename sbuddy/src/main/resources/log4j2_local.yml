@@ -14,21 +14,17 @@ Configutation:
       name: Console_Appender
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red,
-            ERROR=red, INFO=green, DEBUG=blue, TRACE=bg_yellow} [%C] %style{[%t]}{yellow}- %m%n"
-
+        pattern: ${pattern}
+        disableAnsi: false
           
   Loggers:
     Root:
       level: info
       AppenderRef:
         - ref: Console_Appender
-#        - ref: RollingFile_Appender
-#        - ref: File_Appender
     Logger:
       - name: com.sbuddy.web
         additivity: false
         level: debug
         AppenderRef:
           - ref: Console_Appender
-#          - ref: File_Appender

@@ -25,14 +25,34 @@
 		</if>
 	</select>
 	
+	<!-- 이메일 인증 성공 -->
+	<update id="completeEmailAuth" parameterType="HashMap">
+		UPDATE EMAIL_AUTH
+		SET
+			is_auth = 'Y'
+		WHERE
+			email = #{email}
+		AND auth_code = #{auth_code}
+	</update>
+	
 	<!-- 이메일 인증번호 재생성 -->
-	<update id="updateEmailAuth">
+	<update id="regenEmailAuth" parameterType="HashMap">
 		UPDATE EMAIL_AUTH
 		SET
 			auth_code = #{auth_code}
+			is_auth = 'N'
 		WHERE
 			email = #{email}
 	</update>
 	
+	<select id="isEmailAuth" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
+		AND is_auth = 'Y'
+	</select>
 	
 </mapper>
