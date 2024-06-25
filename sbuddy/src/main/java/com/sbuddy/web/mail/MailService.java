@@ -33,4 +33,13 @@ public class MailService {
 			throw new RuntimeException (e);
 		}
 	}
+	
+	/**
+	 * 임시 비밀번호 발송 메일
+	 * @param receiver
+	 * @throws Exception
+	 */
+	public void sendFindPwMail(String receiver) throws Exception {
+		
+	}
 }

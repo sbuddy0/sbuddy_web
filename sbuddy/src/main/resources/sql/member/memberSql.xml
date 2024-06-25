@@ -38,4 +38,31 @@
 			, #{email}
 		)
 	</insert>
+	
+	
+	<!-- 회원 정보 가져오기 -->
+	<select id="getMemberInfo" parameterType="HashMap">
+		SELECT
+			  idx AS idx_member
+			, id
+			, username
+			, email
+			, insert_date
+			, profile
+		FROM
+			MEMBER
+		<if test="id != null and id !=''">
+			WHERE
+				id = #{id}
+		</if>
+	</select>
+	
+	
+	<!-- 비밀번호 변경 -->
+	<select id="chaagePassword" parameterType="HashMap">
+		UPDATE MEMBER
+		SET password = #{new_password}
+		WHERE
+			idx = #{idx_member}
+	</select>
 </mapper>
