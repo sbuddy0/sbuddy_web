@@ -30,6 +30,18 @@ public class PostController {
 	}
 	
 	/**
+	 * 게시글 상세 내용
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/detail")
+	public Map<String, Object> getDetail(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getDetail(param);
+	}
+	
+	/**
 	 * 내 게시글
 	 * @param param
 	 * @return
@@ -39,6 +51,18 @@ public class PostController {
 	public Map<String, Object> getMyPostList(@RequestBody Map<String, Object> param) throws Exception {
 		
 		return postService.getMyPostList(param);
+	}
+	
+	/**
+	 * 글 수정
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/update")
+	public Map<String, Object> updatePost(@RequestPart Map<String, Object> param, @RequestPart MultipartFile file) throws Exception {
+		
+		return postService.updatePost(param, file);
 	}
 	
 	/**

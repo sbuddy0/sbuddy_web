@@ -1,139 +1,80 @@
+// json 데이터 전송
+const promise_json = {
+	fetch: async function(url_v, data_v) {
+		return await fetch(url_v, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(data_v),
+		});
+	}
+}
 
-/**
- * 글 작성
- */
-$("#postingBtn").click(function() {
+// 파일첨부 json 데이터 전송
+const promise_form = {
+	fetch: async function(url_v, formData) {
+		return await fetch(url_v, {
+			method: "POST",
+			headers: {
+	        },
+			body: formData,
+		});
+	}
+}
+
+window.onload = function() {
+	$("button").on("click", async function(ev) {
+		let evo = $(ev.currentTarget);
+		
+		// api url
+		let url_v = evo.siblings("span").text();
+		let param_v = {};
+		
+		// 파라미터
+		param_o = evo.closest(".card").find(".parameter")
+		
+		let length = param_o.find("div input").length;
+		let label_o =  $(param_o.find("label"));
+		let file_v = null;
 	
-	let keywords = [];
-	$("input[name=keywordChk]").each(function () {
-	    if($(this).is(":checked") == true) {
-			keywords.push($(this).val());
+		for(let i = 0; i < length; i++) {
+			let label_v = $(label_o[i]).text();
+			
+			if(label_v != "file") {
+				// 파일 제외 파라미터 
+				let value_v = param_o.find("input")[i].value;
+				param_v[label_v] = value_v;
+			} else {
+				// 파일
+				file_v = $(".file")[0].files[0];
+			}
 		}
-	});
-	
-	let params = {
-		idx_member : 2,
-		title : $("#title").val(),
-		content : $("#board").val(),
-		keyword : keywords
-	}
-	
-	
-	let jsonData = JSON.stringify(params);
-	let blobData = new Blob([jsonData], {type: "application/json"});
-
-	let formData = new FormData();
-
-	formData.append("param", blobData);
-	formData.append("file", $("#file")[0].files[0]);	
-
-	fetch("/api/v1/post/write", {
-		method: "POST",
-		body: formData,
-		headers: {
-            //"content-type": "application/json",
-        },
-	})
-	.then(result => {
-		console.log(result.json());
-	})
-	.catch(error => {
+		param_v["idx_member"] = $("#member").val();
 		
-	});
-
-});
-
-/**
- * 내 게시글
- */
-$("#getMyPostBtn").click(function() {
-	let params = {
-		idx_member : 2,
-	}
-
-	fetch("/api/v1/post/my/list", {
-		method: "POST",
-		body: JSON.stringify(params),
-		headers: {
-            "content-type": "application/json",
-        },
-	})
-	.then(result => {
-		console.log(result.json());
-	})
-	.catch(error => {
+		console.log(param_v);
+		if(file_v != null) {
+			console.log(file_v);
+		}
 		
-	});
-});
-
-/**
- * 글 삭제
- */
-$("#deletetBtn").click(function() {
-	let params = {
-		idx_member : 2,
-		idx_post : $("#deletePost").val()
-	}
-
-	fetch("/api/v1/post/delete", {
-		method: "POST",
-		body: JSON.stringify(params),
-		headers: {
-            "content-type": "application/json",
-        },
-	})
-	.then(result => {
-		console.log(result.json());
-	})
-	.catch(error => {
+		let response = "";
+		if (file_v == null) {
+			response = await promise_json.fetch(url_v, param_v);
+		} else {
+			// 파일이 있을 경우 데이터를 formData로 변경
+			let jsonData = JSON.stringify(param_v);
+			let blobData = new Blob([jsonData], {type: "application/json"});
 		
-	});
-});
-
-/**
- * 텍스트 검색
- */
-$("#searchTextBtn").click(function() {
-	let params = {
-		idx_member : 2,
-		search : $("#search_text").val()
-	}
-
-	fetch("/api/v1/post/search/text", {
-		method: "POST",
-		body: JSON.stringify(params),
-		headers: {
-            "content-type": "application/json",
-        },
-	})
-	.then(result => {
-		console.log(result.json());
-	})
-	.catch(error => {
+			let formData = new FormData();
 		
-	});
-});
-
-/**
- * 키워드 검색
- */
-$("#searchKeywordBtn").click(function() {
-	let params = {
-		idx_member : 2,
-		idx_keyword : $("#search_keyword").val()
-	}
-
-	fetch("/api/v1/post/search/keyword", {
-		method: "POST",
-		body: JSON.stringify(params),
-		headers: {
-            "content-type": "application/json",
-        },
-	})
-	.then(result => {
-		console.log(result.json());
-	})
-	.catch(error => {
+			formData.append("param", blobData);
+			formData.append("file", file_v);	
+			
+			response = await promise_form.fetch(url_v, formData);
+		}
+		const result = await response.json();
 		
+		$(param_o.next()).find(".result pre").html(JSON.stringify(result, null, 2));
 	});
-});
+}
+

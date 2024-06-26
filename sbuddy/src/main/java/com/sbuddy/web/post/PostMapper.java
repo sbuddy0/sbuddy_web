@@ -20,14 +20,26 @@ public interface PostMapper {
 	// 내 게시글
 	public List<Map<String, Object>> getMyPostList(Map<String, Object> param);
 	
+	// 게시글 상세
+	public Map<String, Object> getPostDetail(Map<String, Object> param);
+	
 	// 게시글 키워드
 	public List<Map<String, Object>> getPostKeyword(Map<String, Object> param);
 
 	// 게시글 파일
 	public List<Map<String, Object>> getPostFile(Map<String, Object> param);
 	
+	// 글 수정
+	public int updatePost(Map<String, Object> param);
+	
 	// 글 삭제
 	public int deletePost(Map<String, Object> param);
+	
+	// 글 키워드 삭제
+	public int deletePostKeyword(Map<String, Object> param);
+	
+	// 글 파일 삭제
+	public int deletePostFile(Map<String, Object> param);
 	
 	// 북마크 리스트
 	public List<Map<String, Object>> getBookmarkList(Map<String, Object> param);

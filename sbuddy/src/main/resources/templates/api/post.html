@@ -1,58 +1,217 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>게시글 API 테스트</title>
 <style type="text/css">
 div {
-	padding-bottom : 20px;
+	padding-bottom : 10px;
 }
 </style>
 </head>
 <body>
-	<div>
-		<h1>게시글 API 테스트</h1>
+	<h1>api test</h1>
+	<div class="card">
+		<div class="card-header">
+			<label for="member">회원 idx</label>
+			<input type="text" placeholder="idx_member" id="member">
+		</div>
+		<div class="card-body">
+			<p><b>1. 게시글 작성</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/write</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="제목">
+					<label>title</label>
+				</div>
+				<div>
+					<input type="text" placeholder="내용">
+					<label>content</label>
+				</div>
+				<div>
+					<input type="file" class="file">
+					<label>file</label>
+				</div>
+				<div>
+					<input type="text" placeholder="2,3,5">
+					<label>keyword</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<p>1. 게시글 작성</p>
-		<form method="post">
-			<input type="text" id="title" placeholder="제목을 입력해 주세요."/>
-			<br/><br/>
-			<textarea id="board" rows="5" placeholder="내용을 입력해 주세요."></textarea>
-			<br/><br/>
-			<input type="file" id="file"/>
-			<br/><br/>
-			<label>키워드 </label>
-			<input type="checkbox" name="keywordChk" value="2" id="chk1"/><label for="chk1">JAVA</label>
-			<input type="checkbox" name="keywordChk" value="3" id="chk2"/><label for="chk2">Python</label>
-			<input type="checkbox" name="keywordChk" value="5" id="chk3"/><label for="chk3">C++</label>
-			<input type="checkbox" name="keywordChk" value="13" id="chk4"/><label for="chk4">HTML</label>
-			<input type="checkbox" name="keywordChk" value="27" id="chk5"/><label for="chk5">Web</label>
-			<input type="checkbox" name="keywordChk" value="28" id="chk6"/><label for="chk6">App</label>
-			<br/><br/>
-		</form>
-		<button id="postingBtn">작성</button>
+	<div class="card">
+		<div class="card-body">
+			<p><b>2. 게시글 상세 내용</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/detail</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="게시글 번호">
+					<label>idx_post</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<p>2. 내 게시글</p>
-		<button id="getMyPostBtn">내 게시글</button>
+	<div class="card">
+		<div class="card-body">
+			<p><b>3. 내가 쓴 게시글 리스트</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/my/list</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<p>3. 글 삭제</p>
-		<input type="text" id="deletePost" placeholder="글번호"/>
-		<button id="deleteBtn">삭제</button>
+	<div class="card">
+		<div class="card-body">
+			<p><b>4. 게시글 수정</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/update</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="게시글 번호">
+					<label>idx_post</label>
+				</div>
+				<div>
+					<input type="text" placeholder="제목">
+					<label>title</label>
+				</div>
+				<div>
+					<input type="text" placeholder="내용">
+					<label>content</label>
+				</div>
+				<div>
+					<input type="file" class="file">
+					<label>file</label>
+				</div>
+				<div>
+					<input type="text" placeholder="2,3,5">
+					<label>keyword</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<p>4. 텍스트 검색</p>
-		<input type="text" id="search_text" placeholder="검색"/>
-		<button id="searchTextBtn">검색</button>
+	<div class="card">
+		<div class="card-body">
+			<p><b>5. 게시글 삭제</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/delete</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text">
+					<label>idx_post</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		<p>5. 키워드 검색</p>
-		<input type="text" id="search_keyword" placeholder="2"/>
-		<button id="searchKeywordBtn">검색</button>
+	<div class="card">
+		<div class="card-body">
+			<p><b>6. 텍스트 검색</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/search/text</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="검색 내용">
+					<label>search</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>7. 키워드 검색</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/search/keyword</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="2">
+					<label>idx_keyword</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>8. 북마크 게시글 리스트</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/bookmark/list</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
+<footer style="height: 200px;">
+</footer>
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/assets/summernote/summernote-lite.js"></script>
 <script src="/assets/summernote/lang/summernote-ko-KR.js"></script>

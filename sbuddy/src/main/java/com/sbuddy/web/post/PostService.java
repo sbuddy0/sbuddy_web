@@ -31,12 +31,98 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> writePost (Map<String, Object> param, MultipartFile mFile) throws Exception {
-
+		
 		// 게시글 insert
 		if(postMapper.writePost(param) <= 0) {
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}
 		param.put("idx_post", param.get("idx"));
+		
+		// 키워드 insert
+		String keywordStr = (String) param.get("keyword");
+		String[] keywords = keywordStr.split(",");
+		for(String keyword : keywords) {
+			param.put("idx_keyword", keyword);
+
+			if(postMapper.writePostKeyword(param) <= 0) {
+				return ResponseUtil.error(ResponseCode.FAIL);
+			}
+		}
+		
+		// 파일 업로드
+		String filePath = "post/" + param.get("idx_post") + "/";
+		String fileName = mFile.getOriginalFilename();
+		String uploadPath = s3.uploadFile(mFile, filePath + fileName);
+		
+		param.put("file_name", fileName);
+		param.put("file_size", mFile.getSize());
+		param.put("file_path", uploadPath);
+		
+		if(postMapper.writePostFile(param) <= 0) {
+			s3.deleteFile(filePath + fileName);
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		return ResponseUtil.success();
+	}
+	
+	
+	/**
+	 * 게시글 상세 내용
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getDetail (Map<String, Object> param) throws Exception {
+		
+		// 글
+		Map<String, Object> post = postMapper.getPostDetail(param);
+		
+		// 키워드 매핑
+		List<Map<String, Object>> keywords = postMapper.getPostKeyword(param);
+		post.put("keyword", keywords);
+		
+		// 파일 매핑
+		List<Map<String, Object>> files = postMapper.getPostFile(param);
+		post.put("file", files);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("data", post);
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 내 게시글
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getMyPostList (Map<String, Object> param) throws Exception {
+		
+		// 글
+		List<Map<String, Object>> list = postMapper.getMyPostList(param);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", mappingPost(list));
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 글 수정
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> updatePost (Map<String, Object> param, MultipartFile mFile) throws Exception {
+
+		Map<String, Object> post = postMapper.getPostDetail(param);
+		
+		// 키워드 삭제 후 재등록
+		postMapper.deletePostKeyword(param);
 		
 		// 키워드 insert
 		List<String> keywords = (List<String>) param.get("keyword");
@@ -65,26 +151,8 @@ public class PostService {
 		
 		return ResponseUtil.success();
 	}
-	
-	
-	/**
-	 * 내 게시글
-	 * @param param
-	 * @return
-	 * @throws Exception
-	 */
-	public Map<String, Object> getMyPostList (Map<String, Object> param) throws Exception {
-		
-		// 글
-		List<Map<String, Object>> list = postMapper.getMyPostList(param);
-		
-		Map<String, Object> data = new HashMap<>();
-		data.put("list", mappingPost(list));
-		
-		return ResponseUtil.success(data);
-	}
-	
 
+	
 	/**
 	 * 글 삭제
 	 * @param param
@@ -92,19 +160,35 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> deletePost (Map<String, Object> param) throws Exception {
-		
-		if(postMapper.deletePost(param) <=0) {
-			return ResponseUtil.error(ResponseCode.FAIL);
-		}
 
-		// 파일 삭제
+		/**
+		 * TODO
+		 * 본인 게시글인지 확인
+		 */
+		
+		// 버킷 파일 삭제
 		List<Map<String, Object>> list = postMapper.getPostFile(param);
 		for(Map<String, Object> file : list) {
 			String fileName = String.valueOf(file.get("file_name"));
-			
+
 			s3.deleteFile("post/" + param.get("idx_post") + "/" +  fileName);
 		}
 
+		// 키워드
+		if(postMapper.deletePostKeyword(param) <=0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		// 파일
+		if(postMapper.deletePostFile(param) <=0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		// 게시글
+		if(postMapper.deletePost(param) <=0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
 		return ResponseUtil.success();
 	}
 	
@@ -133,7 +217,7 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> searchText(Map<String, Object> param) throws Exception {
-		
+		System.out.println(param);
 		// 글
 		List<Map<String, Object>> list = postMapper.searchText(param);
 		
