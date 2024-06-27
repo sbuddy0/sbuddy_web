@@ -13,7 +13,6 @@ import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
 @Service
-@SuppressWarnings("unchecked")
 @Transactional
 public class MyPageService {
 	
@@ -33,6 +32,9 @@ public class MyPageService {
 
 		Map<String, Object> data = mypageMapper.getDetail(param);
 		
+		List<Map<String, Object>> keywords = mypageMapper.getMemberKeyword(param);
+		data.put("keyword", keywords);
+		
 		return ResponseUtil.success(data);
 	}
 	
@@ -44,20 +46,27 @@ public class MyPageService {
 	 */
 	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
-		// 파일
+		// 프로필 이미지 변경할 경우
 		String filePath = "member/" + param.get("idx_member") + "/";
-		String fileName = mFile.getOriginalFilename();
-		String uploadPath = s3.uploadFile(mFile, filePath + fileName);
-		param.put("profile", uploadPath);
+
+		if(mFile != null) {
+			// 기존 파일 삭제
+			Map<String, Object> data = mypageMapper.getDetail(param);
+			String preFile = filePath + (String) data.get("file_name");
+			s3.deleteFile(preFile);
+			
+			// 파일
+			String fileName = mFile.getOriginalFilename();
+			String uploadPath = s3.uploadFile(mFile, filePath + fileName);
+			param.put("file_name", fileName);
+			param.put("profile", uploadPath);
+		}
 				
-		if(mypageMapper.modifyInfo(param) > 0) {
-			return ResponseUtil.success();
-		} else {
-			s3.deleteFile(filePath + fileName);
+		if(mypageMapper.modifyInfo(param) <= 0) {
 			return ResponseUtil.error(ResponseCode.FAIL);
 		}		
+		return ResponseUtil.success();
 	}
-	
 	
 	/**
 	 * 키워드 수정
@@ -71,7 +80,8 @@ public class MyPageService {
 		mypageMapper.deleteKeyword(param);
 		
 		// 체크한 키워드 하나씩 등록
-		List<String> keywords = (List<String>) param.get("keyword");
+		String keywordStr = (String) param.get("keyword");
+		String[] keywords = keywordStr.split(",");
 		
 		for(String keyword : keywords) {
 			param.put("idx_keyword", keyword);

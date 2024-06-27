@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/mypage")
@@ -37,9 +36,9 @@ public class MyPageController {
 	 * @throws Exception
 	 */
 	@PostMapping("/modify/info")
-	public Map<String, Object> modifyInfo (@RequestPart Map<String, Object> param, @RequestPart MultipartFile profile) throws Exception {
+	public Map<String, Object> modifyInfo (@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
 
-		return myPageService.modifyInfo(param, profile);
+		return myPageService.modifyInfo(param, file);
 	}
 	
 	/**

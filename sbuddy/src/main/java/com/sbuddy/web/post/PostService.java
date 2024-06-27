@@ -14,7 +14,6 @@ import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
 @Service
-@SuppressWarnings("unchecked")
 @Transactional
 public class PostService {
 	
@@ -41,6 +40,7 @@ public class PostService {
 		// 키워드 insert
 		String keywordStr = (String) param.get("keyword");
 		String[] keywords = keywordStr.split(",");
+		
 		for(String keyword : keywords) {
 			param.put("idx_keyword", keyword);
 
@@ -78,16 +78,8 @@ public class PostService {
 		// 글
 		Map<String, Object> post = postMapper.getPostDetail(param);
 		
-		// 키워드 매핑
-		List<Map<String, Object>> keywords = postMapper.getPostKeyword(param);
-		post.put("keyword", keywords);
-		
-		// 파일 매핑
-		List<Map<String, Object>> files = postMapper.getPostFile(param);
-		post.put("file", files);
-		
 		Map<String, Object> data = new HashMap<>();
-		data.put("data", post);
+		data.put("data", mappingPost(post));
 		
 		return ResponseUtil.success(data);
 	}
@@ -119,13 +111,48 @@ public class PostService {
 	 */
 	public Map<String, Object> updatePost (Map<String, Object> param, MultipartFile mFile) throws Exception {
 
+		// 본인 게시글인지 확인
+		if(postMapper.checkMyPost(param) <= 0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
 		Map<String, Object> post = postMapper.getPostDetail(param);
+		List<Map<String, Object>> files = postMapper.getPostFile(post);
+
+		String filePath = "post/" + param.get("idx_post") + "/";
+		
+		if(mFile != null) {
+			System.out.println(mFile);
+			// 기존 파일 삭제
+			for(Map<String, Object> file : files) {
+				s3.deleteFile(filePath + file.get("file_name"));
+				postMapper.deletePostFile(file);
+			}
+			
+			// 파일 업로드
+			String fileName = mFile.getOriginalFilename();
+			String uploadPath = s3.uploadFile(mFile, filePath + fileName);
+			
+			param.put("file_name", fileName);
+			param.put("file_size", mFile.getSize());
+			param.put("file_path", uploadPath);
+			
+			if(postMapper.writePostFile(param) <= 0) {
+				return ResponseUtil.error(ResponseCode.FAIL);
+			}
+		}
+		
+		// 게시글 기본 정보 수정
+		if(postMapper.updatePost(param) <= 0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
 		
 		// 키워드 삭제 후 재등록
 		postMapper.deletePostKeyword(param);
 		
 		// 키워드 insert
-		List<String> keywords = (List<String>) param.get("keyword");
+		String keywordStr = (String) param.get("keyword");
+		String[] keywords = keywordStr.split(",");
 		
 		for(String keyword : keywords) {
 			param.put("idx_keyword", keyword);
@@ -133,20 +160,6 @@ public class PostService {
 			if(postMapper.writePostKeyword(param) <= 0) {
 				return ResponseUtil.error(ResponseCode.FAIL);
 			}
-		}
-		
-		// 파일 업로드
-		String filePath = "post/" + param.get("idx_post") + "/";
-		String fileName = mFile.getOriginalFilename();
-		String uploadPath = s3.uploadFile(mFile, filePath + fileName);
-		
-		param.put("file_name", fileName);
-		param.put("file_size", mFile.getSize());
-		param.put("file_path", uploadPath);
-		
-		if(postMapper.writePostFile(param) <= 0) {
-			s3.deleteFile(filePath + fileName);
-			return ResponseUtil.error(ResponseCode.FAIL);
 		}
 		
 		return ResponseUtil.success();
@@ -161,10 +174,10 @@ public class PostService {
 	 */
 	public Map<String, Object> deletePost (Map<String, Object> param) throws Exception {
 
-		/**
-		 * TODO
-		 * 본인 게시글인지 확인
-		 */
+		// 본인 게시글인지 확인
+		if(postMapper.checkMyPost(param) <= 0) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
 		
 		// 버킷 파일 삭제
 		List<Map<String, Object>> list = postMapper.getPostFile(param);
@@ -255,7 +268,7 @@ public class PostService {
 	
 	
 	/**
-	 * 게시글과 키워드, 파일 매핑
+	 * 게시글과 키워드, 파일 매핑 (리스트)
 	 * @param list
 	 * @return
 	 * @throws Exception
@@ -276,5 +289,24 @@ public class PostService {
 		}
 		
 		return list;
+	}
+	
+	/**
+	 * 게시글과 키워드, 파일 매핑
+	 * @param post
+	 * @return
+	 * @throws Exception
+	 */
+	private Map<String, Object>  mappingPost(Map<String, Object> post) throws Exception {
+		
+		// 키워드 매핑
+		List<Map<String, Object>> keywords = postMapper.getPostKeyword(post);
+		post.put("keyword", keywords);
+		
+		// 파일 매핑
+		List<Map<String, Object>> files = postMapper.getPostFile(post);
+		post.put("file", files);
+		
+		return post;
 	}
 }

@@ -24,7 +24,7 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/write")
-	public Map<String, Object> writePost (@RequestPart Map<String, Object> param, @RequestPart MultipartFile file) throws Exception {
+	public Map<String, Object> writePost (@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
 		
 		return postService.writePost(param, file);
 	}
@@ -60,8 +60,8 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/update")
-	public Map<String, Object> updatePost(@RequestPart Map<String, Object> param, @RequestPart MultipartFile file) throws Exception {
-		
+	public Map<String, Object> updatePost(@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+		System.out.println(file);
 		return postService.updatePost(param, file);
 	}
 	

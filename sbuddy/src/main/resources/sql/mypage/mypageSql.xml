@@ -9,6 +9,7 @@
 			, username
 			, email
 			, profile
+			, file_name
 		FROM
 			MEMBER
 		WHERE
@@ -28,10 +29,25 @@
 			</if>	
 			<if test="profile != null and profile != ''">
 				, profile = #{profile}
+				, file_name = #{file_name}
 			</if>	
 		WHERE 
 			idx = #{idx_member}
 	</update>
+
+	<!-- 멤버 별 키워드 -->
+	<select id="getMemberKeyword" parameterType="HashMap">
+		SELECT
+			  k.idx AS idx_keyword
+			, k.code
+			, k.keyword
+		FROM
+			KEYWORD k
+		JOIN MEMBER_KEYWORD mk
+		ON mk.idx_keyword = k.idx
+		WHERE
+			mk.idx_member = #{idx_member}
+	</select>
 
 	<!-- 멤버 키워드 삭제 -->
 	<delete id="deleteKeyword" parameterType="HashMap">

@@ -55,4 +55,7 @@ public interface PostMapper {
 
 	// 키워드 검색 개수
 	public int searchKeywordCnt(Map<String, Object> param);
+	
+	// 본인 게시글인지 확인
+	public int checkMyPost(Map<String, Object> param);
 }

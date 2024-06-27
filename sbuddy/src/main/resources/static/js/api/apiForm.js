@@ -36,18 +36,22 @@ window.onload = function() {
 		
 		let length = param_o.find("div input").length;
 		let label_o =  $(param_o.find("label"));
+		
+		let is_file = false;
 		let file_v = null;
 	
 		for(let i = 0; i < length; i++) {
-			let label_v = $(label_o[i]).text();
+			let label_i = label_o[i];
+			let label_v = $(label_i).text();
 			
 			if(label_v != "file") {
 				// 파일 제외 파라미터 
 				let value_v = param_o.find("input")[i].value;
 				param_v[label_v] = value_v;
-			} else {
+			} else if(label_v == "file") {
 				// 파일
-				file_v = $(".file")[0].files[0];
+				is_file = true;
+				file_v = $(label_i).siblings("input")[0].files[0];
 			}
 		}
 		param_v["idx_member"] = $("#member").val();
@@ -58,7 +62,9 @@ window.onload = function() {
 		}
 		
 		let response = "";
-		if (file_v == null) {
+		console.log(file_v);
+		console.log(is_file);
+		if(file_v == null && is_file == false) {
 			response = await promise_json.fetch(url_v, param_v);
 		} else {
 			// 파일이 있을 경우 데이터를 formData로 변경
