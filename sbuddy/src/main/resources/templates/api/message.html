@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>쪽지 API 테스트</title>
+<style type="text/css">
+div {
+	padding-bottom : 10px;
+}
+</style>
+</head>
+<body>
+	<h1>api test</h1>
+	<div class="card">
+		<div class="card-header">
+			<label for="member">회원 idx</label>
+			<input type="text" placeholder="idx_member" id="member" value="2">
+		</div>
+		<div class="card-body">
+			<p><b>1. 쪽지 리스트 (보낸 쪽지: S / 받은 쪽지: R)</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/message/list</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="쪽지 타입(보낸 쪽지, 받은 쪽지)" value="R">
+					<label>message_type</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>2. 쪽지 상세내용</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/message/detail</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="쪽지 번호">
+					<label>idx_message</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<footer style="height: 200px;">
+</footer>
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/js/api/apiForm.js"></script>
+</html>
