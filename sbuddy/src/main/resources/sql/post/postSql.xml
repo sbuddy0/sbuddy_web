@@ -255,4 +255,70 @@
 			idx_member = #{idx_member}
 	</select>
 	
+	
+	
+	
+	
+	<!-- ####### 게시물 메인 ####### -->
+	<!-- 게시물 메인 목록 -->
+	<select id="getList" parameterType="HashMap" resultType="HashMap">
+		SELECT 
+			p.idx idx_post
+			, m.username
+			, m.profile
+			, p.upload_date
+			, p.update_date
+			, pf.file_path
+			, p.title
+			, p.content
+			, p.like_cnt
+		FROM
+			MEMBER m 
+		JOIN
+			POST p 
+		ON m.idx = p.idx_member 
+		JOIN 
+			POST_FILE pf 
+		ON p.idx = pf.idx_post
+		<where>
+			<if test="search != null and search != ''">
+				AND search LIKE CONCAT('%', #{search}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 게시물 메인 목록 갯수 -->
+	<select id="getListCnt" parameterType="HashMap" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM
+			MEMBER m 
+		JOIN
+			POST p 
+		ON m.idx = p.idx_member 
+		JOIN 
+			POST_FILE pf 
+		ON p.idx = pf.idx_post
+		<where>
+			<if test="search != null and search != ''">
+				AND search LIKE CONCAT('%', #{search}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 이번주 인기 모집 글 목록 -->
+	<select id="getPopularList" resultType="HashMap">
+		SELECT
+			p.idx idx_post
+			, title
+			, like_cnt
+			, upload_date 
+		FROM
+			POST p
+		WHERE
+			upload_date BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 7 DAY)) and NOW()
+		ORDER BY
+			like_cnt DESC, upload_date DESC
+	</select>
+	
 </mapper>

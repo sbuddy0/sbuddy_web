@@ -112,4 +112,24 @@ public class PostController {
 		
 		return postService.searchKeyword(param);
 	}
+	
+	
+	 // ####### 게시물 메인 #######
+	@PostMapping("/list")
+	public Map<String, Object> getList(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getList(param);
+	}
+	
+	/**
+	 * 이번주 인기 모집 글 목록
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/popular/list")
+	public Map<String, Object> getPopularList(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getPopularList(param);
+	}
 }

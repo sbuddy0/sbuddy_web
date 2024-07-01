@@ -9,6 +9,31 @@
 		<h1>api test</h1>
 		<div class="card">
 			<div class="card-body">
+				<p><b>0. 비밀번호 찾기</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/member/find/password</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>id</label>
+					</div>
+					<div>
+						<input type="text">
+						<label>email</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
 				<p><b>1. 로그인</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
 				url : <span>/api/v1/login</span>
@@ -65,6 +90,8 @@
 					<div>
 						<input type="text">
 						<label>email</label>
+					</div>
+					<div>
 						<input type="text">
 						<label>auth_code</label>
 					</div>
@@ -88,8 +115,12 @@
 					<div>
 						<input type="text">
 						<label>username</label>
+					</div>
+					<div>
 						<input type="text">
 						<label>email</label>
+					</div>
+					<div>
 						<input type="text">
 						<label>password</label>
 					</div>
@@ -103,18 +134,35 @@
 		</div>
 		<div class="card">
 			<div class="card-body">
-				<p><b>5. 비밀번호 찾기</b></p>
+				<p><b>5. 게시물 목록</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/member/find/password</span>
+				url : <span>/api/v1/post/list</span>
 			</div>
 			<div class="card-body" style="display: flex;">
 				<div class="col-6 parameter">
 					<p>parameter</p>
 					<div>
 						<input type="text">
-						<label>id</label>
-						<input type="text">
-						<label>email</label>
+						<label>search</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<p><b>6. 이번주 인기 모집 글 목록</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/post/popular/list</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
 					</div>
 				</div>
 				<div class="col-6">

@@ -58,4 +58,13 @@ public interface PostMapper {
 	
 	// 본인 게시글인지 확인
 	public int checkMyPost(Map<String, Object> param);
+
+	
+	
+	// ####### 게시물 메인 #######
+	public List<Map<String, Object>> getList(Map<String, Object> param);
+	public int getListCnt(Map<String, Object> param);
+	
+	// 이번주 인기 모집글 목록
+	public List<Map<String, Object>> getPopularList();
 }
