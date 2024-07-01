@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommonUtil {
 	
-	public static void checkIsNull(Map<String, Object> param, String key) throws Exception {
-		if(!param.containsKey(key)) {
+	public static void checkIsNull(Map<String, Object> param, String key) throws Exception {		
+		if(!param.containsKey(key) || param.get(key).equals("")) {
 			throw new RuntimeException();
 		}
 	}

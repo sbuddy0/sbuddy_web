@@ -77,7 +77,7 @@ public class AuthService {
 	 */
 	public Map<String, Object> joinEmailSend(Map<String, Object> param) throws Exception {
 		
-		// ToDo 이메일 형식 검사
+		// TODO 이메일 형식 검사
 		String num = mailService.sendMail(String.valueOf(param.get("email")));
 		
 		param.put("auth_code", num);

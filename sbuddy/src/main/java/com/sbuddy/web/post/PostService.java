@@ -308,5 +308,43 @@ public class PostService {
 		post.put("file", files);
 		
 		return post;
+
+	}
+		
+		
+	// ####### 게시물 메인 #######
+	/**
+	 * 게시물 메인 목록
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getList(Map<String, Object> param) throws Exception {
+		Map<String, Object> data = new HashMap<>();
+		
+		
+		List<Map<String, Object>> postList = postMapper.getList(param);
+		int cnt = postMapper.getListCnt(param);
+		
+		// TODO 게시물별 키워드 매핑
+		
+		return ResponseUtil.success();
+		
+		
+	}
+	
+	/**
+	 * 이번주 인기 모집 글 목록
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getPopularList(Map<String, Object> param) throws Exception {
+		Map<String, Object> data = new HashMap<>();
+		
+		List<Map<String, Object>> list = postMapper.getPopularList();
+		data.put("list", list);
+		
+		return ResponseUtil.success(data);
 	}
 }
