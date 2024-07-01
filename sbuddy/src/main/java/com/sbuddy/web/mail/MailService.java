@@ -7,8 +7,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.sbuddy.web.util.CommonUtil;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -16,30 +14,23 @@ import lombok.RequiredArgsConstructor;
 public class MailService {
 	private final JavaMailSender javaMailSender;
 	
-	public String sendMail(String receiver) throws Exception{
-		String authNum = CommonUtil.createRandomCode(8);
+	public void sendMail(MailData mailData) throws Exception{
 		
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 	
 		try {
+			String email = mailData.getEmail();
+			String title = mailData.getTitle();
+			String content = mailData.getContent();
+			
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessageHelper.setTo(receiver); // 메일 수신자
-            mimeMessageHelper.setSubject("테스트 입니다."); // 메일 제목
-            mimeMessageHelper.setText("<h1> 인증번호 : " + authNum + "</h1>", true); // 메일 본문 내용, HTML 여부
+            mimeMessageHelper.setTo(email); // 메일 수신자
+            mimeMessageHelper.setSubject(title); // 메일 제목
+            mimeMessageHelper.setText(content, true); // 메일 본문 내용, HTML 여부
             javaMailSender.send(mimeMessage);
             
-            return authNum;
 		} catch (MessagingException e) {
 			throw new RuntimeException (e);
 		}
-	}
-	
-	/**
-	 * 임시 비밀번호 발송 메일
-	 * @param receiver
-	 * @throws Exception
-	 */
-	public void sendFindPwMail(String receiver) throws Exception {
-		
 	}
 }

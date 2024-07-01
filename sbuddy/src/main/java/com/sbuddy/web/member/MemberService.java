@@ -5,7 +5,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sbuddy.web.mail.MailData;
 import com.sbuddy.web.mail.MailService;
+import com.sbuddy.web.mail.template.FindPwTemplate;
 import com.sbuddy.web.util.CommonUtil;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.util.SHAUtil;
@@ -31,14 +33,6 @@ public class MemberService {
 	 */
 	public Map<String, Object> findPassword(Map<String, Object> param) throws Exception {
 				
-		/**
-		 * 1. 아이디 유무 확인
-		 * 2. 아이디가 있을 경우 랜덤 문자열 임시 비밀번호 발급, 비밀번호 암호화
-		 * 3. DB 비밀번호를 임시 비밀번호로 변경
-		 * 4. 메일로 비밀번호 발송
-		 * 5. 로그인 시 임시 비밀번호로 로그인
-		 */
-		
 	 	Map<String, Object> data = memberMapper.getMemberInfo(param);
 	 	
 	 	if(data == null) {
@@ -48,15 +42,23 @@ public class MemberService {
 	 	param.putAll(data);
 	 	
 	 	// 임시 비밀번호 생성 및 암호화
-	 	String newPw = commonUtil.makeRandTempPasswd(10);
+	 	String newPw = commonUtil.makeRandTempPasswd(8);
 	 	String encPw = SHAUtil.encrypt(newPw);
 	 	param.put("new_password", encPw);
 	 	
 	 	// 비밀번호 변경
 	 	memberMapper.changePassword(param);
 		
-	 	// 이메일 발송
-	 	mailService.sendFindPwMail((String) param.get("email"));
+	 	// 메일 템플릿 설정
+ 		String email = (String) param.get("email");
+	 	FindPwTemplate template = new FindPwTemplate();
+	 	template.setName((String) param.get("username"));
+	 	template.setId((String) param.get("id"));
+	 	template.setNew_password(newPw);
+ 		
+ 		// 메일 발송
+ 		MailData mailData = new MailData(email, template);
+ 		mailService.sendMail(mailData);
 	 	
 		return ResponseUtil.success();
 	}

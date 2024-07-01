@@ -93,7 +93,7 @@ public class CommonUtil {
 			return false;
 		}
 		
-		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{10,}$");
+		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$");
 		Matcher matcher = pattern.matcher(passwd);
 		
 		if (matcher.matches()) {

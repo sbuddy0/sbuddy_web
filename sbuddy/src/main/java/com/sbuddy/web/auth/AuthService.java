@@ -5,8 +5,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sbuddy.web.mail.MailData;
 import com.sbuddy.web.mail.MailService;
+import com.sbuddy.web.mail.template.JoinAuthTemplate;
 import com.sbuddy.web.member.MemberMapper;
+import com.sbuddy.web.util.CommonUtil;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.util.SHAUtil;
 import com.sbuddy.web.vo.ResponseCode;
@@ -78,9 +81,18 @@ public class AuthService {
 	public Map<String, Object> joinEmailSend(Map<String, Object> param) throws Exception {
 		
 		// ToDo 이메일 형식 검사
-		String num = mailService.sendMail(String.valueOf(param.get("email")));
+		String authNum = CommonUtil.createRandomCode(8);
+		String email = String.valueOf(param.get("email"));
 		
-		param.put("auth_code", num);
+		// 메일 템플릿 설정
+		JoinAuthTemplate template = new JoinAuthTemplate();
+		template.setAuthNum(authNum);
+		
+		// 메일 발송
+		MailData mailData = new MailData(email, template);
+		mailService.sendMail(mailData);
+		
+		param.put("auth_code", authNum);
 		
 		int result = authMapper.countEmailAuth(param);
 		if(result == 1) {

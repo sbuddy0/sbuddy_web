@@ -147,7 +147,7 @@
 			, p.idx AS idx_post
 			, p.title 
 			, p.content
-			, p.view
+			, p.like_cnt
 			, p.upload_date
 			, p.update_date
 		FROM
