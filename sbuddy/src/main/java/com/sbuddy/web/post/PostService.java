@@ -326,9 +326,11 @@ public class PostService {
 		List<Map<String, Object>> postList = postMapper.getList(param);
 		int cnt = postMapper.getListCnt(param);
 		
+		data.put("total", cnt);
+		data.put("list", postList);
 		// TODO 게시물별 키워드 매핑
 		
-		return ResponseUtil.success();
+		return ResponseUtil.success(data);
 		
 		
 	}
@@ -346,5 +348,29 @@ public class PostService {
 		data.put("list", list);
 		
 		return ResponseUtil.success(data);
+	}
+	
+	/**
+	 * 게시글 좋아요
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> postLikes(Map<String, Object> param) throws Exception {
+ 		postMapper.postLikes(param);
+		
+		return ResponseUtil.success();
+	}
+	
+	/**
+	 * 게시글 좋아요 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> deleteLikes(Map<String, Object> param) throws Exception {
+		postMapper.deleteLikes(param);
+		
+		return ResponseUtil.success();
 	}
 }

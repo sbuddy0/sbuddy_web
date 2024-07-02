@@ -67,4 +67,12 @@ public interface PostMapper {
 	
 	// 이번주 인기 모집글 목록
 	public List<Map<String, Object>> getPopularList();
+	
+	// 게시글 좋아요
+	public int postLikes(Map<String, Object> param);
+	
+	// 게시글 좋아요 삭제
+	public int deleteLikes(Map<String, Object> param);
+	
+	
 }

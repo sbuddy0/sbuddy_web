@@ -10,12 +10,36 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommonUtil {
 	
-	public static void checkIsNull(Map<String, Object> param, String key) throws Exception {		
-		if(!param.containsKey(key) || param.get(key).equals("")) {
+	/**
+	 * 필수 파라미터 검사 
+	 * @param param
+	 * @param key
+	 * @throws Exception
+	 */
+	public static void checkIsNullException(Map<String, Object> param, String key) throws Exception {		
+		if(!param.containsKey(key) || param.get(key).equals("") || param.get(key).equals(null)) {
 			throw new RuntimeException();
 		}
 	}
 	
+	/**
+	 * 파라미터 안에 키 값이 존재하는지 검사
+	 * @param param
+	 * @param key
+	 * @return
+	 */
+	public static boolean checkIsNull(Map<String, Object> param, String key) {
+		if(param == null || key == null || param.get(key).equals("") || param.get(key).equals(null)) {
+			return false;
+		}
+		return true;
+	}
+		
+	/**
+	 * 숫자, 영대문자 조합의 랜덤 코드 생성
+	 * @param length
+	 * @return
+	 */
 	public static String createRandomCode(int length) {
 		Random random = new Random();
 		StringBuffer randomCode = new StringBuffer();

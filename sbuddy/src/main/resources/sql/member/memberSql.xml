@@ -3,12 +3,12 @@
 <mapper namespace="com.sbuddy.web.member.MemberMapper">
 	<select id="loginMember" resultType="HashMap">
 		SELECT
-			COUNT(*)
+			idx as idx_member
 		FROM
 			MEMBER
 		WHERE
 			id = #{id}
-			password = #{encryptPassword}
+		AND password = #{hashPassword}
 	</select>
 	
 	<!-- ##### 회원가입 ##### -->
@@ -33,7 +33,7 @@
 			, email
 		) VALUES (
 			#{id}
-			, #{encryptPassword}
+			, #{hashPassword}
 			, #{username}
 			, #{email}
 		)

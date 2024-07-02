@@ -28,6 +28,10 @@ cloud:
     s3:
       bucket: sbuddy-bucket
     
+jwt:
+  secret:
+    key: b7c1ccf275440e551218989bb7ce9dd23485a7274ff5eaa95e3092626dc164e738b6120681b9abef7426c0be11ae2915f9bf4256293c3a7545ea129bdc6db8d6
+
 ---
 
 spring:

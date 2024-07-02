@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sbuddy.web.util.CommonUtil;
+
 @RestController
 @RequestMapping("/api/v1/post")
 public class PostController {
@@ -131,5 +133,33 @@ public class PostController {
 	public Map<String, Object> getPopularList(@RequestBody Map<String, Object> param) throws Exception {
 		
 		return postService.getPopularList(param);
+	}
+	
+	/**
+	 * 게시글 좋아요
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/likes")
+	public Map<String, Object> postLikes(@RequestBody Map<String, Object> param) throws Exception {
+		
+		CommonUtil.checkIsNull(param, "idx_post");
+		
+		return postService.postLikes(param);
+	}
+	
+	/**
+	 * 게시글 좋아요 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/delete/likes")
+	public Map<String, Object> postDeleteLikes(@RequestBody Map<String, Object> param) throws Exception {
+		
+		CommonUtil.checkIsNull(param, "idx_post");
+		
+		return postService.deleteLikes(param);
 	}
 }

@@ -13,6 +13,7 @@ import com.sbuddy.web.util.CommonUtil;
 @RestController
 @RequestMapping("/api/v1")
 public class AuthController {
+	
 	@Autowired
 	private AuthService authService;
 	
@@ -26,8 +27,8 @@ public class AuthController {
 	public Map<String, Object> login(@RequestBody Map<String, Object> param) throws Exception {
 		// id, pw 전처리
 		
-		CommonUtil.checkIsNull(param, "id");
-		CommonUtil.checkIsNull(param, "password");
+		CommonUtil.checkIsNullException(param, "id");
+		CommonUtil.checkIsNullException(param, "password");
 		
 		return authService.login(param);
 	}

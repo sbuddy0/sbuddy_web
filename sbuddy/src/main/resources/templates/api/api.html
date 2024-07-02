@@ -9,31 +9,6 @@
 		<h1>api test</h1>
 		<div class="card">
 			<div class="card-body">
-				<p><b>0. 비밀번호 찾기</b></p>
-				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/member/find/password</span>
-			</div>
-			<div class="card-body" style="display: flex;">
-				<div class="col-6 parameter">
-					<p>parameter</p>
-					<div>
-						<input type="text">
-						<label>id</label>
-					</div>
-					<div>
-						<input type="text">
-						<label>email</label>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card result">
-						<pre></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
 				<p><b>1. 로그인</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
 				url : <span>/api/v1/login</span>
@@ -163,6 +138,48 @@
 				<div class="col-6 parameter">
 					<p>parameter</p>
 					<div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<p><b>7. 게시물 좋아요</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/post/likes</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>idx_post</label>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<p><b>8. 게시물 좋아요 삭제</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/post/delete/likes</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text">
+						<label>idx_post</label>
 					</div>
 				</div>
 				<div class="col-6">

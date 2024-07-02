@@ -26,6 +26,9 @@ public class AuthService {
 	@Autowired
 	private MailService mailService;
 	
+	@Autowired
+	private JWTService jwtService;
+	
 	/**
 	 * 로그인
 	 * @param param
@@ -35,11 +38,20 @@ public class AuthService {
 	public Map<String, Object> login(Map<String, Object> param) throws Exception {
 		
 		String password = String.valueOf(param.get("password"));
-		String encryptPassword = SHAUtil.encrypt(password);
+		String hashPassword = SHAUtil.encrypt(password);
 		
-		param.put("hashPassword", encryptPassword);
-		memberMapper.loginMember(param);
+		System.out.println("encrypt pw : " + hashPassword);
 		
+		param.put("hashPassword", hashPassword);
+		Map<String, Object> result = memberMapper.loginMember(param);
+		
+		if(!CommonUtil.checkIsNull(result, "idx_member")) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		String test = jwtService.loginToken(result);
+		String a = jwtService.getIdxMember(test);
+
 		return ResponseUtil.success(param);
 	}
 	
@@ -64,9 +76,9 @@ public class AuthService {
 		
 		//3. password 암호화
 		String password = String.valueOf(param.get("password"));
-		String encryptPassword = SHAUtil.encrypt(password);
+		String hashPassword = SHAUtil.encrypt(password);
 		
-		param.put("encryptPassword", encryptPassword);
+		param.put("hashPassword", hashPassword);
 		memberMapper.joinMember(param);
 		
 		return ResponseUtil.success();
