@@ -60,7 +60,6 @@ public interface PostMapper {
 	public int checkMyPost(Map<String, Object> param);
 
 	
-	
 	// ####### 게시물 메인 #######
 	public List<Map<String, Object>> getList(Map<String, Object> param);
 	public int getListCnt(Map<String, Object> param);
@@ -74,7 +73,10 @@ public interface PostMapper {
 	// 게시글 좋아요 삭제
 	public int deleteLikes(Map<String, Object> param);
 	
+	// 존재하는 게시글인지 검사
 	public int existPost(Map<String, Object> param);
+	// 좋아요 누른 게시글인지 검사
 	public int countPostLikes(Map<String, Object> param);
+	// 게시글 좋아요 수 갱신
 	public int updateLikesTotal(Map<String, Object> param);
 }
