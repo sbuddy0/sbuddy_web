@@ -155,11 +155,11 @@ public class PostController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/delete/likes")
-	public Map<String, Object> postDeleteLikes(@RequestBody Map<String, Object> param) throws Exception {
+	@PostMapping("/likes/cancel")
+	public Map<String, Object> postCancelLikes(@RequestBody Map<String, Object> param) throws Exception {
 		
 		CommonUtil.checkIsNull(param, "idx_post");
 		
-		return postService.deleteLikes(param);
+		return postService.cancelLikes(param);
 	}
 }

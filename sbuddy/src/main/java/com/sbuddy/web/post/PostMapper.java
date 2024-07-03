@@ -74,5 +74,7 @@ public interface PostMapper {
 	// 게시글 좋아요 삭제
 	public int deleteLikes(Map<String, Object> param);
 	
-	
+	public int existPost(Map<String, Object> param);
+	public int countPostLikes(Map<String, Object> param);
+	public int updateLikesTotal(Map<String, Object> param);
 }

@@ -323,7 +323,7 @@
 	
 	<!-- 게시글 좋아요 -->
 	<insert id="postLikes" parameterType="HashMap">
-		INSERT INTO post_likes (
+		INSERT INTO POST_LIKES (
 			idx_member
 			, idx_post
 		) VALUES (
@@ -332,12 +332,45 @@
 		)
 	</insert>
 	
+	
 	<!-- 게시글 좋아요 삭제 -->
 	<delete id="deleteLikes" parameterType="HashMap">
-		DELETE FROM post_likes
+		DELETE FROM POST_LIKES
 		WHERE
 			idx_member = #{idx_member}
 		AND idx_post = #{idx_post}
 	</delete>
 	
+	<select id="existPost" parameterType="HashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			POST
+		WHERE
+			idx = #{idx_post}
+	</select>
+	
+	<select id="countPostLikes" parameterType="HashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			POST_LIKES
+		WHERE
+			idx_post = #{idx_post}
+	</select>
+	
+	<update id="updateLikesTotal" parameterType="HashMap">
+		UPDATE POST p
+		SET
+			like_cnt = (
+				SELECT
+					COUNT(*)
+				FROM
+					POST_LIKES pl
+				WHERE
+					pl.idx_post = #{idx_post}
+			)
+		WHERE
+			p.idx = #{idx_post}
+	</update>
 </mapper>
