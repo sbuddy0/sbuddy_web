@@ -16,6 +16,9 @@ public enum ResponseCode {
 	// fail
 	FAIL("400", HttpStatus.BAD_REQUEST, "FAIL"),
 	
+	NOT_EXISTS_MEMBER("1001", HttpStatus.OK, "NOT_EXISTS_MEMBER"),
+	
+	SEND_FAIL_MESSAGE("5001", HttpStatus.OK, "SEND_FAIL_MESSAGE"),
 	;
 	
 	private final String code;

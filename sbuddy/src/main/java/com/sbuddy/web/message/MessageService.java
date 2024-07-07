@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sbuddy.web.util.ResponseUtil;
+import com.sbuddy.web.vo.ResponseCode;
 
 @Service
 @Transactional
@@ -45,5 +46,26 @@ public class MessageService {
 		Map<String, Object> data = messageMapper.getMessageDetail(param);
 		
 		return ResponseUtil.success(data);
+	}
+
+
+
+
+	/**
+	 * 쪽지 보내기
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> sendMessage(Map<String, Object> param) throws Exception{
+		param.put("idx_member", 1);
+		
+		int result = messageMapper.sendMessage(param);
+		if(result != 1) {
+			return ResponseUtil.error(ResponseCode.SEND_FAIL_MESSAGE);
+		}
+		
+		return ResponseUtil.success();
+		
 	}
 }

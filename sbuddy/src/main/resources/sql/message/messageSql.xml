@@ -39,4 +39,29 @@
 			idx = #{idx_message}
 	</select>
 	
+
+
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="HashMap">
+		INSERT INTO MESSAGE (
+			idx_receiver
+			, idx_sender
+			, title
+			, content
+		<if test='idx_reply != null and idx_reply != ""'>
+			, idx_reply
+		</if>
+		) VALUES (
+			#{idx_receiver}
+			, #{idx_member}
+			, #{title}
+			, #{content}
+		<if test='idx_reply != null and idx_reply != ""'>
+			, #{idx_reply}
+		</if>
+		)
+		
+	</insert>
+
+
 </mapper>

@@ -58,6 +58,39 @@ div {
 			</div>
 		</div>
 	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>3. 쪽지 보내기</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/message/send</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="받는 회원 idx">
+					<label>idx_receiver</label>
+				</div>
+				<div>
+					<input type="text" placeholder="제목">
+					<label>title</label>
+				</div>
+				<div>
+					<input type="text" placeholder="내용">
+					<label>content</label>
+				</div>
+				<div>
+					<input type="text" placeholder="답장인 경우 쪽지 idx">
+					<label>idx_reply</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <footer style="height: 200px;">
 </footer>

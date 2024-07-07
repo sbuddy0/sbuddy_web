@@ -1,5 +1,6 @@
 package com.sbuddy.web.auth;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +37,27 @@ public class AuthService {
 	 * @throws Exception 
 	 */
 	public Map<String, Object> login(Map<String, Object> param) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		String password = String.valueOf(param.get("password"));
 		String hashPassword = SHAUtil.encrypt(password);
 		
-		System.out.println("encrypt pw : " + hashPassword);
-		
 		param.put("hashPassword", hashPassword);
-		Map<String, Object> result = memberMapper.loginMember(param);
+		Map<String, Object> loginParam = memberMapper.loginMember(param);
 		
-		if(!CommonUtil.checkIsNull(result, "idx_member")) {
-			return ResponseUtil.error(ResponseCode.FAIL);
+		if(!CommonUtil.checkIsNull(loginParam, "idx_member")) {
+			return ResponseUtil.error(ResponseCode.NOT_EXISTS_MEMBER);
 		}
 		
-		String test = jwtService.loginToken(result);
-		String a = jwtService.getIdxMember(test);
-
-		return ResponseUtil.success(param);
+		String jwtToken = jwtService.loginToken(loginParam);
+		String idx_member = jwtService.getIdxMember(jwtToken);
+		
+		System.out.println("idx_member --> : " + idx_member);
+		
+		result.put("token", jwtToken);
+		result.put("idx_member", idx_member);
+		
+		return ResponseUtil.success(result);
 	}
 	
 	/**

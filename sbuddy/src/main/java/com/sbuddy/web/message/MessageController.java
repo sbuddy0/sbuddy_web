@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbuddy.web.util.CommonUtil;
+
 @RestController
 @RequestMapping("/api/v1/message")
 public class MessageController {
@@ -38,4 +40,19 @@ public class MessageController {
 		
 		return messageService.getMessageDetail(param);
 	}
+
+
+
+
+	
+	@PostMapping("/send")
+	public Map<String, Object> sendMessage(@RequestBody Map<String, Object> param) throws Exception {
+		
+		CommonUtil.checkIsNullException(param, "idx_receiver");
+		
+		return messageService.sendMessage(param);
+	}
+
+
+
 }
