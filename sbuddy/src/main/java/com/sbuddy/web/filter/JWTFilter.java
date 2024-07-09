@@ -27,6 +27,7 @@ public class JWTFilter extends OncePerRequestFilter {
 	private final static String[] EXCLUDE_URI = {
 			"/",
 			"/message",
+			"/api/v1/login",
 			"/login",
 			"/assets/*",
 			"/js/*",
@@ -37,7 +38,6 @@ public class JWTFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		boolean isExclude = false;
 		String requestURI = request.getRequestURI();
 		
@@ -56,9 +56,15 @@ public class JWTFilter extends OncePerRequestFilter {
 			}
 		}
 		
-		filterChain.doFilter(request, response);
+		//filterChain.doFilter(request, response);
+		boolean result = apiRequestVerify(request);
 		
 		if(isExclude) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		
+		if(result) {
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -68,12 +74,11 @@ public class JWTFilter extends OncePerRequestFilter {
 	}
 	
 	
-	public boolean apiRequestVerify(HttpServletRequest request) throws Exception {
+	public boolean apiRequestVerify(HttpServletRequest request) {
 		
-		String jwtToken = request.getHeader("jwt-token");
+		String jwtToken = request.getHeader("Token");
 		
 		Claims claims;
-
 		try {
 			claims = Jwts.parserBuilder()
 					.setSigningKey(createKey(SECRET_KEY))
@@ -81,10 +86,9 @@ public class JWTFilter extends OncePerRequestFilter {
 					.parseClaimsJws(jwtToken)
 					.getBody();
 		} catch(Exception e) {
-			throw new Exception();
+			return false;
 		}
 		// TODO 토큰 검사
-		
 		return true;
 	}
 	
