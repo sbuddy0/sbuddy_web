@@ -3,12 +3,14 @@ const promise = {
 		return await fetch(url_v, {
 			method: method,
 			headers: {
-				"content-type": "application/json",
+				"Content-Type": "application/json",
+				"token" : $("#header_token").val()
 			},
 			body: JSON.stringify(data_v),
 		});
 	}
 }
+
 
 window.onload = function() {
 	$("button").on("click", async function(ev) {
