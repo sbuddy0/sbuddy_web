@@ -3,6 +3,7 @@ package com.sbuddy.web.mail;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MailService {
-	private final JavaMailSender javaMailSender;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
 	
 	public void sendMail(MailData mailData) throws Exception{
 		

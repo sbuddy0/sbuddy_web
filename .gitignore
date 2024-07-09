@@ -2,3 +2,4 @@
 .settings/*
 src/main/resources/aws.yml
 sbuddy/src/main/resources/aws.yml
+sbuddy/dev_build/
