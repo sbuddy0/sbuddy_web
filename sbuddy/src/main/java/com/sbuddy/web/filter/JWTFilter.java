@@ -70,10 +70,9 @@ public class JWTFilter extends OncePerRequestFilter {
 		}
 		
 		System.out.println("request Url ==> " + requestURI);
-		// TODO token 검증
 	}
 	
-	
+	// TODO token 검증
 	public boolean apiRequestVerify(HttpServletRequest request) {
 		
 		String jwtToken = request.getHeader("Token");

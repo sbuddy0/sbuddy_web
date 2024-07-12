@@ -1,4 +1,4 @@
-package com.sbuddy.web.auth;
+package com.sbuddy.web.filter;
 
 import java.security.Key;
 import java.util.Date;

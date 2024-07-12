@@ -379,7 +379,7 @@ public class PostService {
 	public Map<String, Object> cancelLikes(Map<String, Object> param) throws Exception {
  		param.put("idx_member", 1);
 
- 		// 게시글이 존재하는지, 좋아요 중복인지 검사
+ 		// 게시글이 존재하는지, 좋아요 누른 게시글인지 검사
  		if(postMapper.existPost(param) == 0 || postMapper.countPostLikes(param) == 0) { 
  			return ResponseUtil.error(ResponseCode.FAIL);
  		} else {

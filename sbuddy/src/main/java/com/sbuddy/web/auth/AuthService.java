@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sbuddy.web.filter.JWTService;
 import com.sbuddy.web.mail.MailData;
 import com.sbuddy.web.mail.MailService;
 import com.sbuddy.web.mail.template.JoinAuthTemplate;
