@@ -12,7 +12,6 @@
 		)
 	</insert>
 	
-	<!-- 이테일 인증번호 확인 -->
 	<select id="countEmailAuth" parameterType="HashMap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -20,9 +19,17 @@
 			EMAIL_AUTH
 		WHERE
 			email = #{email}
-		<if test="auth_code != null and auth_code != ''">
+	</select>
+	
+	<!-- 이메일 인증번호 확인 -->
+	<select id="authEmail" parameterType="HashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EMAIL_AUTH
+		WHERE
+			email = #{email}
 			AND auth_code = #{auth_code}
-		</if>
 	</select>
 	
 	<!-- 이메일 인증 성공 -->
@@ -40,7 +47,7 @@
 		UPDATE EMAIL_AUTH
 		SET
 			auth_code = #{auth_code}
-			is_auth = 'N'
+			, is_auth = 'N'
 		WHERE
 			email = #{email}
 	</update>
@@ -54,5 +61,11 @@
 			email = #{email}
 		AND is_auth = 'Y'
 	</select>
+	
+	<!-- 
+	<insert id="insertKeyword" parameterType="HashMap">
+		INSERT INTO MEMBER_KEYWORD ()
+	</insert>
+	 -->
 	
 </mapper>
