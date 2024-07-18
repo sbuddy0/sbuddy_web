@@ -58,6 +58,8 @@ public class AuthService {
 		result.put("token", jwtToken);
 		result.put("idx_member", idx_member);
 		
+		//TODO 임시비밀번호로 로그인 한 경우 yn 파라미터 넣기
+		
 		return ResponseUtil.success(result);
 	}
 	
@@ -68,7 +70,7 @@ public class AuthService {
 	 * @throws Exception 
 	 */
 	public Map<String, Object> join(Map<String, Object> param) throws Exception {
-		
+		// TODO 회원가입 수정 테스트!!!
 		//1. 이메일 중복확인
 		if(memberMapper.duplicateMember(param) == 1) {
 			return ResponseUtil.error(ResponseCode.FAIL);
@@ -110,9 +112,10 @@ public class AuthService {
 		MailData mailData = new MailData(email, template);
 		mailService.sendMail(mailData);
 		
+		int result = authMapper.countEmailAuth(param);
+		
 		param.put("auth_code", authNum);
 		
-		int result = authMapper.countEmailAuth(param);
 		if(result == 1) {
 			authMapper.regenEmailAuth(param);
 		} else if(result == 0) {
@@ -129,11 +132,24 @@ public class AuthService {
 	 */
 	public Map<String, Object> joinEmailAuth(Map<String, Object> param) {
 		
-		int result = authMapper.countEmailAuth(param);
+		int result = authMapper.authEmail(param);
 		
 		if(result != 1) { // 인증번호 오류
 			return ResponseUtil.error(ResponseCode.FAIL);
+		} else {
+			authMapper.completeEmailAuth(param);
 		}
+		
 		return ResponseUtil.success();
 	}
+	
+	public Map<String, Object> joinKeywordInsert(Map<String, Object> param) {
+		
+		int result = authMapper.insertKeyword(param);
+		
+		
+		return ResponseUtil.success();
+	}
+	
+	
 }
