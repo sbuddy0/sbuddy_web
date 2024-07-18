@@ -12,14 +12,17 @@ public interface MypageMapper {
 	public Map<String, Object> getDetail(Map<String, Object> param);
 	
 	// 내 정보 수정
-	public int  modifyInfo(Map<String, Object> param);
+	public int modifyInfo(Map<String, Object> param);
 	
 	// 멤버 별 키워드
 	public List<Map<String, Object>> getMemberKeyword(Map<String, Object> param);
 	
 	// 등록된 키워드 일괄 삭제
-	public int  deleteKeyword(Map<String, Object> param);
+	public int deleteKeyword(Map<String, Object> param);
 	
 	// 키워드 수정
-	public int  modifyKeyword(Map<String, Object> param);
+	public int modifyKeyword(Map<String, Object> param);
+	
+	// 비밀번호 변경
+	public int modifyPassword(Map<String, Object> param);
 }

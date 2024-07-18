@@ -24,7 +24,7 @@ public class MyPageController {
 	 * @throws Exception
 	 */
 	@PostMapping("/detail")
-	public Map<String, Object> getDetail (@RequestBody Map<String, Object> param) throws Exception {
+	public Map<String, Object> getDetail(@RequestBody Map<String, Object> param) throws Exception {
 		
 		return myPageService.getDetail(param);
 	}
@@ -36,7 +36,7 @@ public class MyPageController {
 	 * @throws Exception
 	 */
 	@PostMapping("/modify/info")
-	public Map<String, Object> modifyInfo (@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+	public Map<String, Object> modifyInfo(@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
 
 		return myPageService.modifyInfo(param, file);
 	}
@@ -48,8 +48,20 @@ public class MyPageController {
 	 * @throws Exception
 	 */
 	@PostMapping("/modify/keyword")
-	public Map<String, Object> modifyKeyword (@RequestBody Map<String, Object> param) throws Exception {
+	public Map<String, Object> modifyKeyword(@RequestBody Map<String, Object> param) throws Exception {
 		
 		return myPageService.modifyKeyword(param);
+	}
+
+	/**
+	 * 비밀번호 변경
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/modify/password")
+	public Map<String, Object> modifyPassword(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return myPageService.modifyPassword(param);
 	}
 }

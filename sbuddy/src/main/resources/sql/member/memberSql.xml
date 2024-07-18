@@ -62,10 +62,11 @@
 	</select>
 	
 	
-	<!-- 비밀번호 변경 -->
+	<!-- 임시 비밀번호 변경 -->
 	<update id="changePassword" parameterType="HashMap">
 		UPDATE MEMBER
-		SET password = #{new_password}
+		SET   password = #{new_password}
+			, tmp_password_yn = 'Y'
 		WHERE
 			idx = #{idx_member}
 	</update>

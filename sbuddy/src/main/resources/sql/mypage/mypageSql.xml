@@ -10,6 +10,7 @@
 			, email
 			, profile
 			, file_name
+			, password
 		FROM
 			MEMBER
 		WHERE
@@ -67,4 +68,14 @@
 		)
 	</insert>
 
+	<!-- 비밀번호 변경 -->
+	<update id="modifyPassword" parameterType="HashMap">
+		UPDATE
+			MEMBER
+		SET   password = #{enc_password}
+			, tmp_password_yn = 'N'
+		WHERE
+			idx = #{idx_member}
+	</update>
+	
 </mapper>

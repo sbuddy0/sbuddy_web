@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sbuddy.web.file.S3Service;
 import com.sbuddy.web.util.ResponseUtil;
+import com.sbuddy.web.util.SHAUtil;
 import com.sbuddy.web.vo.ResponseCode;
 
 @Service
@@ -28,7 +29,7 @@ public class MyPageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> getDetail (Map<String, Object> param) throws Exception {
+	public Map<String, Object> getDetail(Map<String, Object> param) throws Exception {
 
 		Map<String, Object> data = mypageMapper.getDetail(param);
 		
@@ -44,7 +45,7 @@ public class MyPageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> modifyInfo (Map<String, Object> param,  MultipartFile mFile) throws Exception {
+	public Map<String, Object> modifyInfo(Map<String, Object> param,  MultipartFile mFile) throws Exception {
 		
 		// 프로필 이미지 변경할 경우
 		String filePath = "member/" + param.get("idx_member") + "/";
@@ -74,7 +75,7 @@ public class MyPageService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> modifyKeyword (Map<String, Object> param) throws Exception {
+	public Map<String, Object> modifyKeyword(Map<String, Object> param) throws Exception {
 		
 		// 등록된 키워드 일괄 삭제
 		mypageMapper.deleteKeyword(param);
@@ -90,6 +91,33 @@ public class MyPageService {
 				return ResponseUtil.error(ResponseCode.FAIL);
 			}
 		}
+		
+		return ResponseUtil.success();
+	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> modifyPassword(Map<String, Object> param) throws Exception {
+		
+		// 기존 비밀번호 비교
+		Map<String, Object> info = mypageMapper.getDetail(param);
+		String prePassword = String.valueOf(info.get("password"));
+		String encPrePassword = SHAUtil.encrypt(String.valueOf(param.get("password")));
+		
+		if(!prePassword.equals(encPrePassword)) {
+			return ResponseUtil.error(ResponseCode.FAIL);
+		}
+		
+		// 새 비밀번호로 변경
+		String newPassword = String.valueOf(param.get("new_password"));
+		String encPassword = SHAUtil.encrypt(newPassword);
+		param.put("enc_password", encPassword);
+		                                                                                                                    
+		mypageMapper.modifyPassword(param);
 		
 		return ResponseUtil.success();
 	}

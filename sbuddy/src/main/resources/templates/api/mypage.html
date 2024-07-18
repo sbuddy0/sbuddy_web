@@ -85,6 +85,31 @@ div {
 			</div>
 		</div>
 	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>4. 비밀번호 변경</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/mypage/modify/password</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="기존 비밀번호">
+					<label>password</label>
+				</div>
+				<div>
+					<input type="text" placeholder="새 비밀번호">
+					<label>new_password</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <footer style="height: 200px;">
 </footer>
