@@ -24,10 +24,16 @@ public class JWTFilter extends OncePerRequestFilter {
 	@Value("${jwt.secret.key}")
 	private String SECRET_KEY;
 	
+	/**
+	 * 필터 통과 못하면 reason 
+	 * 
+	 */
 	private final static String[] EXCLUDE_URI = {
 			"/",
 			"/message",
 			"/api/v1/login",
+			"/api/v1/join",
+			"/api/v1/join/email/*",
 			"/login",
 			"/assets/*",
 			"/js/*",
@@ -56,8 +62,8 @@ public class JWTFilter extends OncePerRequestFilter {
 			}
 		}
 		
-		//filterChain.doFilter(request, response);
-		boolean result = apiRequestVerify(request);
+		boolean result = true;
+				//apiRequestVerify(request);
 		
 		if(isExclude) {
 			filterChain.doFilter(request, response);
