@@ -70,7 +70,6 @@ public class AuthService {
 	 * @throws Exception 
 	 */
 	public Map<String, Object> join(Map<String, Object> param) throws Exception {
-		// TODO 회원가입 수정 테스트!!!
 		//1. 이메일 중복확인
 		if(memberMapper.duplicateMember(param) == 1) {
 			return ResponseUtil.error(ResponseCode.FAIL);

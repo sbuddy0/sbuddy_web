@@ -1,5 +1,6 @@
 package com.sbuddy.web.member;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,27 @@ public class MemberService {
  		MailData mailData = new MailData(email, template);
  		mailService.sendMail(mailData);
 	 	
+		return ResponseUtil.success();
+	}
+	
+	/**
+	 * 회원 키워드 등록 (첫 로그인 시)
+	 * @param param
+	 * @return
+	 */
+	public Map<String, Object> insertKeyword(Map<String, Object> param) {
+		
+		Map<String, Object> keyword_info = new HashMap<>();
+		
+		String[] list = ((String) param.get("keyword_list")).split(",");
+		
+		for(Object idx_keyword : list) {
+			// TODO token login_id..
+			keyword_info.put("idx_keyword", idx_keyword);
+			keyword_info.put("idx_member", 1);
+			int result = memberMapper.insertMemberKeyword(keyword_info);
+		}
+		
 		return ResponseUtil.success();
 	}
 }

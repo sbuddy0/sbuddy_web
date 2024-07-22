@@ -17,4 +17,7 @@ public interface MemberMapper {
 	
 	// 임시 비민번호 변경
 	public int changePassword(Map<String, Object> param);
+	
+	// 첫 로그인 시 회원 키워드 등록
+	public int insertMemberKeyword(Map<String, Object> param);
 }

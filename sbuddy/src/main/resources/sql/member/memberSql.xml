@@ -70,4 +70,17 @@
 		WHERE
 			idx = #{idx_member}
 	</update>
+
+	<!-- 회원 키워드 등록 -->
+	<insert id="insertMemberKeyword" parameterType="HashMap">
+		INSERT INTO MEMBER_KEYWORD (
+			idx_member
+			, idx_keyword
+		) VALUES (
+			#{idx_member}
+			, #{idx_keyword}
+		)
+	</insert>
+	
+
 </mapper>
