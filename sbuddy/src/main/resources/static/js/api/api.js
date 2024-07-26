@@ -4,7 +4,7 @@ const promise = {
 			method: method,
 			headers: {
 				"Content-Type": "application/json",
-				"token" : $("#header_token").val()
+				"Token" : $("#header_token").val()
 			},
 			body: JSON.stringify(data_v),
 		});

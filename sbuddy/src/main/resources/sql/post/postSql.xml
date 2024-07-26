@@ -278,16 +278,16 @@
 		JOIN
 			POST p 
 		ON m.idx = p.idx_member 
-		JOIN 
+		LEFT JOIN 
 			POST_FILE pf 
 		ON p.idx = pf.idx_post
 		LEFT JOIN
 			POST_LIKES pl 
-		ON pl.idx_member = #{idx_member}
+		ON pl.idx_member = #{idx_login}
 		AND pl.idx_post = p.idx 
 		<where>
 			<if test="search != null and search != ''">
-				AND search LIKE CONCAT('%', #{search}, '%')
+				AND title LIKE CONCAT('%', #{search}, '%')
 			</if>
 		</where>
 	</select>
@@ -306,7 +306,7 @@
 		ON p.idx = pf.idx_post
 		<where>
 			<if test="search != null and search != ''">
-				AND search LIKE CONCAT('%', #{search}, '%')
+				AND title LIKE CONCAT('%', #{search}, '%')
 			</if>
 		</where>
 	</select>
@@ -332,7 +332,7 @@
 			idx_member
 			, idx_post
 		) VALUES (
-			#{idx_member}
+			#{idx_login}
 			, #{idx_post}
 		)
 	</insert>
@@ -342,10 +342,11 @@
 	<delete id="deleteLikes" parameterType="HashMap">
 		DELETE FROM POST_LIKES
 		WHERE
-			idx_member = #{idx_member}
+			idx_member = #{idx_login}
 		AND idx_post = #{idx_post}
 	</delete>
 	
+	<!-- 게시글이 존재하는지 검사 -->
 	<select id="existPost" parameterType="HashMap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -355,6 +356,7 @@
 			idx = #{idx_post}
 	</select>
 	
+	<!-- 좋아요 누른 게시글인지 검사 -->
 	<select id="countPostLikes" parameterType="HashMap" resultType="int">
 		SELECT
 			COUNT(*)
@@ -362,6 +364,7 @@
 			POST_LIKES
 		WHERE
 			idx_post = #{idx_post}
+		AND idx_member = #{idx_login}
 	</select>
 	
 	<update id="updateLikesTotal" parameterType="HashMap">

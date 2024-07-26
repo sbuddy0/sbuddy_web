@@ -5,6 +5,7 @@ const promise_json = {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
+				"Token" : $("#header_token").val()
 			},
 			body: JSON.stringify(data_v),
 		});

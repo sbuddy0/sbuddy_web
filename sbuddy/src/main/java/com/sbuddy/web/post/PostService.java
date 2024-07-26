@@ -321,8 +321,6 @@ public class PostService {
 	 */
 	public Map<String, Object> getList(Map<String, Object> param) throws Exception {
 		Map<String, Object> data = new HashMap<>();
-		
-		
 		List<Map<String, Object>> postList = postMapper.getList(param);
 		int cnt = postMapper.getListCnt(param);
 		
@@ -331,8 +329,6 @@ public class PostService {
 		// TODO 게시물별 키워드 매핑
 		
 		return ResponseUtil.success(data);
-		
-		
 	}
 	
 	/**
@@ -357,11 +353,11 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> postLikes(Map<String, Object> param) throws Exception {
- 		param.put("idx_member", 1);
-		
  		// 게시글이 존재하는지, 좋아요 중복인지 검사
- 		if(postMapper.existPost(param) == 0 || postMapper.countPostLikes(param) == 1) { 
- 			return ResponseUtil.error(ResponseCode.FAIL);
+ 		if(postMapper.existPost(param) == 0) {
+ 			return ResponseUtil.error(ResponseCode.NOT_EXISTS_POST);
+ 		} else if(postMapper.countPostLikes(param) == 1) { 
+ 			return ResponseUtil.error(ResponseCode.ALREADY_POST_LIKE);
  		} else {
  			postMapper.postLikes(param);
  			postMapper.updateLikesTotal(param);
@@ -377,11 +373,11 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> cancelLikes(Map<String, Object> param) throws Exception {
- 		param.put("idx_member", 1);
-
  		// 게시글이 존재하는지, 좋아요 누른 게시글인지 검사
- 		if(postMapper.existPost(param) == 0 || postMapper.countPostLikes(param) == 0) { 
- 			return ResponseUtil.error(ResponseCode.FAIL);
+ 		if(postMapper.existPost(param) == 0) {
+ 			return ResponseUtil.error(ResponseCode.NOT_EXISTS_POST);
+ 		} else if(postMapper.countPostLikes(param) == 0) { 
+ 			return ResponseUtil.error(ResponseCode.NOT_EXISTS_POST_LIKE);
  		} else {
  			postMapper.deleteLikes(param);
  			postMapper.updateLikesTotal(param);

@@ -18,7 +18,18 @@ public enum ResponseCode {
 	
 	NOT_EXISTS_MEMBER("1001", HttpStatus.OK, "NOT_EXISTS_MEMBER"),
 	
+	
+	
+	NOT_EXISTS_POST("2001", HttpStatus.OK, "NOT_EXISTS_POST"),
+	ALREADY_POST_LIKE("2002", HttpStatus.OK, "ALREADY_POST_LIKE"),
+	
+	NOT_EXISTS_POST_LIKE("2003", HttpStatus.OK, "NOT_EXISTS_POST_LIKE"),
+	
 	SEND_FAIL_MESSAGE("5001", HttpStatus.OK, "SEND_FAIL_MESSAGE"),
+	
+	
+	// token에 member_idx 를 찾을 수 없는 경우
+	NOT_FIND_LOGIN_IDX("9999", HttpStatus.OK, "NOT_FIND_LOGIN_IDX")
 	;
 	
 	private final String code;

@@ -4,6 +4,7 @@
 	<select id="loginMember" resultType="HashMap">
 		SELECT
 			idx as idx_member
+			, tmp_password_yn
 		FROM
 			MEMBER
 		WHERE
