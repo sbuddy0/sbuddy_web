@@ -58,8 +58,6 @@ public class MessageService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> sendMessage(Map<String, Object> param) throws Exception{
-		param.put("idx_member", 1);
-		
 		int result = messageMapper.sendMessage(param);
 		if(result != 1) {
 			return ResponseUtil.error(ResponseCode.SEND_FAIL_MESSAGE);
