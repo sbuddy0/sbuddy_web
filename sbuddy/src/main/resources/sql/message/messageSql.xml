@@ -15,10 +15,10 @@
 			MESSAGE	
 		<where>
 			<if test='message_type == "R" or message_type == null'>
-			idx_receiver = #{idx_member}
+			idx_receiver = #{idx_login}
 			</if>
 			<if test='message_type == "S"'>
-			idx_sender = #{idx_member}
+			idx_sender = #{idx_login}
 			</if>			
 		</where>
 	</select>

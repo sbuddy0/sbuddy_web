@@ -16,7 +16,7 @@
 		WHERE
 			state = 'Y'
 		AND
-			idx = #{idx_member}
+			idx = #{idx_login}
 	</select>
 
 	<!-- 내 정보 수정 -->
@@ -33,7 +33,7 @@
 				, file_name = #{file_name}
 			</if>	
 		WHERE 
-			idx = #{idx_member}
+			idx = #{idx_login}
 	</update>
 
 	<!-- 멤버 별 키워드 -->
@@ -47,14 +47,14 @@
 		JOIN MEMBER_KEYWORD mk
 		ON mk.idx_keyword = k.idx
 		WHERE
-			mk.idx_member = #{idx_member}
+			mk.idx_member = #{idx_login}
 	</select>
 
 	<!-- 멤버 키워드 삭제 -->
 	<delete id="deleteKeyword" parameterType="HashMap">
 		DELETE FROM MEMBER_KEYWORD
 		WHERE 
-			idx_member = #{idx_member}
+			idx_member = #{idx_login}
 	</delete>
 
 	<!-- 키워드 수정 -->
@@ -63,7 +63,7 @@
 			  idx_member
 			, idx_keyword
 		) VALUES (
-			  #{idx_member}
+			  #{idx_login}
 			, #{idx_keyword}
 		)
 	</insert>
@@ -75,7 +75,7 @@
 		SET   password = #{enc_password}
 			, tmp_password_yn = 'N'
 		WHERE
-			idx = #{idx_member}
+			idx = #{idx_login}
 	</update>
 	
 </mapper>
