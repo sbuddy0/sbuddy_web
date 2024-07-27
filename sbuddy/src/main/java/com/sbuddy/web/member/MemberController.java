@@ -27,8 +27,16 @@ public class MemberController {
 		return memberService.findPassword(param);
 	}
 	
-	/*
-	@PostMapping("/Keyword/insert")
-	public Map<String, Object>
-	*/
+	/**
+	 * 회원 키워드 등록 (첫 로그인 시)
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/keyword/insert")
+	public Map<String, Object> insertKeyword(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return memberService.insertKeyword(param);
+	}
+	
 }

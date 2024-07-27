@@ -12,8 +12,8 @@ public class ResponseUtil {
 	 */
 	public static Map<String, Object> success() {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("code", ResponseCode.OK);
-		result.put("message", ResponseCode.OK);
+		result.put("code", ResponseCode.OK.getCode());
+		result.put("message", ResponseCode.OK.getMessage());
 		
 		return result;
 	}
@@ -24,8 +24,8 @@ public class ResponseUtil {
 	 */
 	public static Map<String, Object> success(Map<String, Object> data) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("code", ResponseCode.OK);
-		result.put("message", ResponseCode.OK);
+		result.put("code", ResponseCode.OK.getCode());
+		result.put("message", ResponseCode.OK.getMessage());
 		result.put("data", data);
 		
 		return result;
@@ -37,8 +37,8 @@ public class ResponseUtil {
 	 */
 	public static Map<String, Object> error(ResponseCode responseCode) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("code", responseCode);
-		result.put("message", responseCode);
+		result.put("code", responseCode.getCode());
+		result.put("message", responseCode.getMessage());
 		
 		return result;
 	}
@@ -49,8 +49,8 @@ public class ResponseUtil {
 	 */
 	public static Map<String, Object> error(ResponseCode responseCode, Map<String, Object> data) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("code", responseCode);
-		result.put("message", responseCode);
+		result.put("code", responseCode.getCode());
+		result.put("message", responseCode.getMessage());
 		result.put("data", data);
 		
 		return result;

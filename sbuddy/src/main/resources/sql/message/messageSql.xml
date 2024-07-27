@@ -53,7 +53,7 @@
 		</if>
 		) VALUES (
 			#{idx_receiver}
-			, #{idx_member}
+			, #{idx_login}
 			, #{title}
 			, #{content}
 		<if test='idx_reply != null and idx_reply != ""'>

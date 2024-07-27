@@ -8,7 +8,7 @@
 	<body>
 		<h1>api test</h1>
 		<div id="header">
-			<label>jwt-token</label>
+			<label>Token</label>
 			<input id="header_token" type="text" placeholder="로그인 후 token을 적어주세요">
 		</div>
 		<div class="card">
@@ -113,89 +113,7 @@
 		</div>
 		<div class="card">
 			<div class="card-body">
-				<p><b>5. 게시물 목록</b></p>
-				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/post/list</span>
-			</div>
-			<div class="card-body" style="display: flex;">
-				<div class="col-6 parameter">
-					<p>parameter</p>
-					<div>
-						<input type="text">
-						<label>search</label>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card result">
-						<pre></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<p><b>6. 이번주 인기 모집 글 목록</b></p>
-				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/post/popular/list</span>
-			</div>
-			<div class="card-body" style="display: flex;">
-				<div class="col-6 parameter">
-					<p>parameter</p>
-					<div>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card result">
-						<pre></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<p><b>7. 게시물 좋아요</b></p>
-				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/post/likes</span>
-			</div>
-			<div class="card-body" style="display: flex;">
-				<div class="col-6 parameter">
-					<p>parameter</p>
-					<div>
-						<input type="text">
-						<label>idx_post</label>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card result">
-						<pre></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<p><b>8. 게시물 좋아요 삭제</b></p>
-				<button type="button" class="btn btn-primary">통신</button>
-				url : <span>/api/v1/post/likes/cancel</span>
-			</div>
-			<div class="card-body" style="display: flex;">
-				<div class="col-6 parameter">
-					<p>parameter</p>
-					<div>
-						<input type="text">
-						<label>idx_post</label>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="card result">
-						<pre></pre>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<p><b>9. 비밀번호 찾기</b></p>
+				<p><b>5. 비밀번호 찾기</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
 				url : <span>/api/v1/member/find/password</span>
 			</div>
@@ -220,7 +138,7 @@
 		</div>
 		<div class="card">
 			<div class="card-body">
-				<p><b>10. 키워드 전체 조회</b></p>
+				<p><b>6. 키워드 전체 조회</b></p>
 				<button type="button" class="btn btn-primary">통신</button>
 				url : <span>/api/v1/keyword/list</span>
 			</div>
@@ -228,6 +146,27 @@
 				<div class="col-6 parameter">
 					<p>parameter</p>
 					<div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card result">
+						<pre></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-body">
+				<p><b>6. 회원 키워드 등록</b></p>
+				<button type="button" class="btn btn-primary">통신</button>
+				url : <span>/api/v1/member/keyword/insert</span>
+			</div>
+			<div class="card-body" style="display: flex;">
+				<div class="col-6 parameter">
+					<p>parameter</p>
+					<div>
+						<input type="text" placeholder="2,3">
+						<label>keyword_list</label>
 					</div>
 				</div>
 				<div class="col-6">

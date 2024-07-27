@@ -53,12 +53,12 @@ public class AuthService {
 		String jwtToken = jwtService.loginToken(loginParam);
 		String idx_member = jwtService.getIdxMember(jwtToken);
 		
-		System.out.println("idx_member --> : " + idx_member);
-		
 		result.put("token", jwtToken);
 		result.put("idx_member", idx_member);
 		
-		//TODO 임시비밀번호로 로그인 한 경우 yn 파라미터 넣기
+		if(loginParam.get("tmp_password_yn").equals("Y")) {
+			result.put("tmp_password", true);
+		}
 		
 		return ResponseUtil.success(result);
 	}
@@ -70,7 +70,6 @@ public class AuthService {
 	 * @throws Exception 
 	 */
 	public Map<String, Object> join(Map<String, Object> param) throws Exception {
-		// TODO 회원가입 수정 테스트!!!
 		//1. 이메일 중복확인
 		if(memberMapper.duplicateMember(param) == 1) {
 			return ResponseUtil.error(ResponseCode.FAIL);
@@ -142,14 +141,4 @@ public class AuthService {
 		
 		return ResponseUtil.success();
 	}
-	
-	public Map<String, Object> joinKeywordInsert(Map<String, Object> param) {
-		
-		int result = authMapper.insertKeyword(param);
-		
-		
-		return ResponseUtil.success();
-	}
-	
-	
 }

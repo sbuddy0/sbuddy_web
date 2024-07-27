@@ -77,12 +77,4 @@ public class AuthController {
 		
 		return authService.joinEmailAuth(param);
 	}
-	
-	// 회원가입 시 키워드 선택 (최소 3개 이상)
-	@PostMapping("/join/keyword/insert")
-	public Map<String, Object> joinKeywordInsert(@RequestBody Map<String, Object> param) {
-		
-		
-		return authService.joinKeywordInsert(param);
-	}
 }

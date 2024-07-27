@@ -43,20 +43,15 @@ public class JWTService {
     	return Keys.hmacShaKeyFor(key.getBytes("UTF-8"));
     }
 	
-    private String getJwt(){
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
-        return request.getHeader("X-ACCESS-TOKEN");
-    }
-    
     public String loginToken(Map<String, Object> param) throws Exception {
     	return createToken(param);
     }
 	
-	public String getIdxMember(String jwt) throws Exception {
+	public String getIdxMember(String jwt) {
 		// 헤더에서 JWT 추출
 		String accessToken = jwt;
-		if(accessToken == null || accessToken.length() == 0) {
-			throw new Exception();
+		if(accessToken == null || accessToken.length() == 0) {	
+			return null;
 		}
 		
 		// JWT 파싱
@@ -68,7 +63,8 @@ public class JWTService {
 					.parseClaimsJws(accessToken)
 					.getBody();
 		} catch(Exception e) {
-			throw new Exception();
+			e.printStackTrace();
+			return null;
 		}
 		return String.valueOf(claims.get("idx_member"));
 	}
