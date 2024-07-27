@@ -10,7 +10,7 @@
 			, content
 			, upload_date
 		) VALUES (
-			  #{idx_member}
+			  #{idx_login}
 			, #{title}
 			, #{content}
 			, NOW()
@@ -54,10 +54,11 @@
 			, content
 			, like_cnt
 			, upload_date
+			, idx_member
 		FROM
 			POST
 		WHERE
-			idx_member = #{idx_member}
+			idx_member = #{idx_login}
 		ORDER BY
 			upload_date DESC
 	</select>
@@ -144,6 +145,7 @@
 	<select id="getBookmarkList" parameterType="HashMap">
 		SELECT
 			  b.idx AS idx_bookmark
+			, b.idx_member
 			, p.idx AS idx_post
 			, p.title 
 			, p.content
@@ -156,7 +158,7 @@
 			POST p
 		ON b.idx_post = p.idx
 		WHERE
-			b.idx_member = #{idx_member}
+			b.idx_member = #{idx_login}
 		ORDER BY
 			p.upload_date DESC
 	</select>
@@ -252,7 +254,7 @@
 		WHERE
 			idx = #{idx_post}
 		AND
-			idx_member = #{idx_member}
+			idx_member = #{idx_login}
 	</select>
 	
 	
