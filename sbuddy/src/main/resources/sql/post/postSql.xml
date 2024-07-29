@@ -266,6 +266,7 @@
 	<select id="getList" parameterType="HashMap" resultType="HashMap">
 		SELECT 
 			p.idx idx_post
+			,p.idx_member
 			, m.username
 			, m.profile
 			, p.upload_date
