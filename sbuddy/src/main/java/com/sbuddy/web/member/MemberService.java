@@ -1,11 +1,15 @@
 package com.sbuddy.web.member;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbuddy.web.mail.MailData;
 import com.sbuddy.web.mail.MailService;
 import com.sbuddy.web.mail.template.FindPwTemplate;
@@ -68,20 +72,20 @@ public class MemberService {
 	 * 회원 키워드 등록 (첫 로그인 시)
 	 * @param param
 	 * @return
+	 * @throws ParseException 
+	 * @throws JsonProcessingException 
+	 * @throws JsonMappingException 
 	 */
-	public Map<String, Object> insertKeyword(Map<String, Object> param) {
+	public Map<String, Object> insertKeyword(Map<String, Object> param) throws JsonMappingException, JsonProcessingException {
 		
-		Map<String, Object> keyword_info = new HashMap<>();
+		ObjectMapper mapper = new ObjectMapper();
+        List<Integer> keywordList = mapper.readValue(param.get("keyword_list").toString(), new TypeReference<List<Integer>>() {});
 		
-		String[] list = ((String) param.get("keyword_list")).split(",");
-		
-		for(Object idx_keyword : list) {
-			// TODO token login_id..
-			keyword_info.put("idx_keyword", idx_keyword);
-			keyword_info.put("idx_member", 1);
-			int result = memberMapper.insertMemberKeyword(keyword_info);
-		}
-		
+        for(Integer keywordIdx : keywordList) {
+        	param.put("idx_keyword", keywordIdx);
+        	memberMapper.insertMemberKeyword(param);
+        }
+        
 		return ResponseUtil.success();
 	}
 }

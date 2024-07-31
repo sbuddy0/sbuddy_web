@@ -78,7 +78,7 @@
 			idx_member
 			, idx_keyword
 		) VALUES (
-			#{idx_member}
+			#{idx_login}
 			, #{idx_keyword}
 		)
 	</insert>
