@@ -314,6 +314,23 @@
 		</where>
 	</select>
 	
+	<!-- 게시물 키워드 목록 -->
+	<select id="getKeywordList" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			p.idx as idx_post
+			, pk.idx_keyword 
+			, k.code 
+			, k.description
+		FROM POST_KEYWORD pk
+		JOIN
+			POST p 
+		ON
+			pk.idx_post = p.idx
+		JOIN
+			KEYWORD k 
+		ON pk.idx_keyword = k.idx
+	</select>
+	
 	<!-- 이번주 인기 모집 글 목록 -->
 	<select id="getPopularList" resultType="HashMap">
 		SELECT
