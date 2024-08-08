@@ -1,5 +1,6 @@
 package com.sbuddy.web.post;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -324,9 +325,23 @@ public class PostService {
 		List<Map<String, Object>> postList = postMapper.getList(param);
 		int cnt = postMapper.getListCnt(param);
 		
+		List<Map<String, Object>> allKeywordList = postMapper.getKeywordList(param);
+		
+		for(Map<String, Object> post : postList) {
+			
+			List<Map<String, Object>> keywordList = new ArrayList<>();
+			String idxPost = String.valueOf(post.get("idx_post"));
+			
+			for(Map<String, Object> keyword : allKeywordList) {
+				String keywordIdxPost = String.valueOf(keyword.get("idx_post"));
+				if(idxPost.equals(keywordIdxPost)) {
+					keywordList.add(keyword);
+				}
+			}
+			post.put("keyword_list", keywordList);
+		}
 		data.put("total", cnt);
 		data.put("list", postList);
-		// TODO 게시물별 키워드 매핑
 		
 		return ResponseUtil.success(data);
 	}

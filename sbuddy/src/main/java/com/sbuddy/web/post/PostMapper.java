@@ -61,8 +61,12 @@ public interface PostMapper {
 
 	
 	// ####### 게시물 메인 #######
+	// 게시글 목록
 	public List<Map<String, Object>> getList(Map<String, Object> param);
 	public int getListCnt(Map<String, Object> param);
+	
+	// 게시글 키워드 목록
+	public List<Map<String, Object>> getKeywordList(Map<String, Object> param);
 	
 	// 이번주 인기 모집글 목록
 	public List<Map<String, Object>> getPopularList();

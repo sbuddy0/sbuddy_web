@@ -49,9 +49,7 @@ public class RequestBodyControllerAdvice implements RequestBodyAdvice {
         // 요청 본문 수정
         String token = inputMessage.getHeaders().get("token").get(0);
         String idxLogin = jwtService.getIdxMember(token);
-        if(idxLogin == null) {
-        	
-        } else {
+        if(idxLogin != null) {
         	param.put("idx_login", idxLogin);
         	System.out.println("idx_login ---> " + idxLogin);
         }
