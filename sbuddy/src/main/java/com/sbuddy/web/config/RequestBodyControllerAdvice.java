@@ -47,12 +47,15 @@ public class RequestBodyControllerAdvice implements RequestBodyAdvice {
         Map<String, Object> param = objectMapper.readValue(bodyBytes, Map.class);
         
         // 요청 본문 수정
-        String token = inputMessage.getHeaders().get("token").get(0);
-        String idxLogin = jwtService.getIdxMember(token);
-        if(idxLogin != null) {
-        	param.put("idx_login", idxLogin);
-        	System.out.println("idx_login ---> " + idxLogin);
-        }
+        try {
+        	String token = inputMessage.getHeaders().get("token").get(0);
+        	String idxLogin = jwtService.getIdxMember(token);
+        	if(idxLogin != null) {
+        		param.put("idx_login", idxLogin);
+        		System.out.println("idx_login ---> " + idxLogin);
+        	}
+        } catch (Exception e) {
+		}
         
         // 수정된 Map을 다시 JSON 문자열로 변환
         String modifiedBodyString = objectMapper.writeValueAsString(param);

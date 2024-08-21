@@ -18,7 +18,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
  @Component
- @Order(1)
+ @Order(2)
 public class JWTFilter extends OncePerRequestFilter {
 	 
 	@Value("${jwt.secret.key}")
