@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbuddy.web.file.S3Service;
 import com.sbuddy.web.util.ResponseUtil;
 import com.sbuddy.web.vo.ResponseCode;
@@ -39,12 +41,11 @@ public class PostService {
 		param.put("idx_post", param.get("idx"));
 		
 		// 키워드 insert
-		String keywordStr = (String) param.get("keyword");
-		String[] keywords = keywordStr.split(",");
+		ObjectMapper mapper = new ObjectMapper();
+        List<Integer> keywordList = mapper.readValue(param.get("keyword_list").toString(), new TypeReference<List<Integer>>() {});
 		
-		for(String keyword : keywords) {
+		for(Integer keyword : keywordList) {
 			param.put("idx_keyword", keyword);
-
 			if(postMapper.writePostKeyword(param) <= 0) {
 				return ResponseUtil.error(ResponseCode.FAIL);
 			}
@@ -123,7 +124,6 @@ public class PostService {
 		String filePath = "post/" + param.get("idx_post") + "/";
 		
 		if(mFile != null) {
-			System.out.println(mFile);
 			// 기존 파일 삭제
 			for(Map<String, Object> file : files) {
 				s3.deleteFile(filePath + file.get("file_name"));
@@ -152,10 +152,10 @@ public class PostService {
 		postMapper.deletePostKeyword(param);
 		
 		// 키워드 insert
-		String keywordStr = (String) param.get("keyword");
-		String[] keywords = keywordStr.split(",");
+		ObjectMapper mapper = new ObjectMapper();
+        List<Integer> keywordList = mapper.readValue(param.get("keyword_list").toString(), new TypeReference<List<Integer>>() {});
 		
-		for(String keyword : keywords) {
+		for(Integer keyword : keywordList) {
 			param.put("idx_keyword", keyword);
 
 			if(postMapper.writePostKeyword(param) <= 0) {

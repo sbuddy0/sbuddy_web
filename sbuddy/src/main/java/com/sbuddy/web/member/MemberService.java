@@ -82,8 +82,9 @@ public class MemberService {
         List<Integer> keywordList = mapper.readValue(param.get("keyword_list").toString(), new TypeReference<List<Integer>>() {});
 		
         for(Integer keywordIdx : keywordList) {
+        	System.out.println(keywordIdx);
         	param.put("idx_keyword", keywordIdx);
-        	memberMapper.insertMemberKeyword(param);
+//        	memberMapper.insertMemberKeyword(param);
         }
         
 		return ResponseUtil.success();
