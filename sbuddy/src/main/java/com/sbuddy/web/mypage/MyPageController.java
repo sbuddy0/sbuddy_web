@@ -2,6 +2,8 @@ package com.sbuddy.web.mypage;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,8 +38,10 @@ public class MyPageController {
 	 * @throws Exception
 	 */
 	@PostMapping("/modify/info")
-	public Map<String, Object> modifyInfo(@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+	public Map<String, Object> modifyInfo(HttpServletRequest request, @RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
 
+		param.put("idx_login", request.getParameter("idx_login"));
+		
 		return myPageService.modifyInfo(param, file);
 	}
 	

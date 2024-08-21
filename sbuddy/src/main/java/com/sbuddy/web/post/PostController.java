@@ -2,6 +2,8 @@ package com.sbuddy.web.post;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +28,9 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/write")
-	public Map<String, Object> writePost (@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+	public Map<String, Object> writePost (HttpServletRequest request, @RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+		
+		param.put("idx_login", request.getParameter("idx_login"));
 		
 		return postService.writePost(param, file);
 	}
@@ -38,8 +42,8 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/detail")
-	public Map<String, Object> getDetail(@RequestBody Map<String, Object> param) throws Exception {
-		
+	public Map<String, Object> getDetail(@RequestBody Map<String, Object> param, HttpServletRequest request) throws Exception {
+
 		return postService.getDetail(param);
 	}
 	
@@ -62,8 +66,10 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@PostMapping("/update")
-	public Map<String, Object> updatePost(@RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
-		System.out.println(file);
+	public Map<String, Object> updatePost(HttpServletRequest request, @RequestPart Map<String, Object> param, @RequestPart(required = false) MultipartFile file) throws Exception {
+
+		param.put("idx_login", request.getParameter("idx_login"));
+		
 		return postService.updatePost(param, file);
 	}
 	

@@ -18,6 +18,7 @@ const promise_form = {
 		return await fetch(url_v, {
 			method: "POST",
 			headers: {
+				"Token" : $("#header_token").val()
 	        },
 			body: formData,
 		});
@@ -55,7 +56,6 @@ window.onload = function() {
 				file_v = $(label_i).siblings("input")[0].files[0];
 			}
 		}
-		param_v["idx_login"] = $("#member").val();
 		
 		console.log(param_v);
 		if(file_v != null) {
