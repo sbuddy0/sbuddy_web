@@ -97,4 +97,6 @@ public interface PostMapper {
 	public int countPostLikes(Map<String, Object> param);
 	// 게시글 좋아요 수 갱신
 	public int updateLikesTotal(Map<String, Object> param);
+	// 게시글 조회수 증가
+	public int updatePostHits(Map<String, Object> param);
 }

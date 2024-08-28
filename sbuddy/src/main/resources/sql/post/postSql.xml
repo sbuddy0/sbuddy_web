@@ -55,6 +55,7 @@
 			, like_cnt
 			, upload_date
 			, idx_member
+			, hits
 		FROM
 			POST
 		WHERE
@@ -66,14 +67,21 @@
 	<!-- 게시글 상세 -->
 	<select id="getPostDetail" parameterType="HashMap" resultType="HashMap">
 		SELECT
-			  idx AS idx_post
+			  p.idx AS idx_post
 			, idx_member
+			, m.username
+			, m.profile
 			, title
 			, content
+			, p.like_cnt 
+			, p.hits
 		FROM
-			POST
+			POST p
+		JOIN
+			MEMBER m
+		ON p.idx_member = m.idx
 		WHERE
-			idx = #{idx_post}
+			p.idx = #{idx_post}
 	</select>
 
 	<!-- 게시글 별 키워드 -->
@@ -316,7 +324,7 @@
 	<select id="getList" parameterType="HashMap" resultType="HashMap">
 		SELECT 
 			p.idx idx_post
-			,p.idx_member
+			, p.idx_member
 			, m.username
 			, m.profile
 			, p.upload_date
@@ -325,6 +333,7 @@
 			, p.title
 			, p.content
 			, p.like_cnt
+			, p.hits
 			, IF(ISNULL(pl.idx_member), "false", "true") as is_like
 		FROM
 			MEMBER m 
@@ -338,6 +347,7 @@
 			POST_LIKES pl 
 		ON pl.idx_member = #{idx_login}
 		AND pl.idx_post = p.idx 
+		ORDER BY update_date DESC 
 		<where>
 			<if test="search != null and search != ''">
 				AND title LIKE CONCAT('%', #{search}, '%')
@@ -387,13 +397,19 @@
 			p.idx idx_post
 			, title
 			, like_cnt
-			, upload_date 
+			, upload_date
+			, hits
+			, m.profile
+			, m.username
 		FROM
 			POST p
+		JOIN
+			MEMBER m
+		ON p.idx_member = m.idx
 		WHERE
 			upload_date BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 7 DAY)) and NOW()
 		ORDER BY
-			like_cnt DESC, upload_date DESC
+			(like_cnt + hits) DESC, upload_date DESC
 	</select>
 	
 	<!-- 게시글 좋아요 -->
@@ -450,5 +466,14 @@
 			)
 		WHERE
 			p.idx = #{idx_post}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="updatePostHits" parameterType="HashMap">
+		UPDATE POST
+		SET
+			hits = hits + 1
+		WHERE
+			idx = #{idx_post}
 	</update>
 </mapper>
