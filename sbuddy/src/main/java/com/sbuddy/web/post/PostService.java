@@ -231,7 +231,12 @@ public class PostService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> searchText(Map<String, Object> param) throws Exception {
-		System.out.println(param);
+
+		// 검색 기록 저장
+		if(postMapper.checkSearch(param) <= 0) {
+			postMapper.saveSearch(param);
+		}
+		
 		// 글
 		List<Map<String, Object>> list = postMapper.searchText(param);
 		
@@ -265,6 +270,51 @@ public class PostService {
 		data.put("total", cnt);
 			
 		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 본인의 최근 검색 리스트
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> getSearchRecentList(Map<String, Object> param) throws Exception {
+		
+		List<Map<String, Object>> list = postMapper.getSearchRecentList(param);
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("list", list);
+		
+		return ResponseUtil.success(data);
+	}
+	
+	
+	/**
+	 * 최근 검색 기록 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> deleteSearchRecent(Map<String, Object> param) throws Exception {
+		
+		postMapper.deleteSearchRecent(param);
+		
+		return ResponseUtil.success();
+	}
+	
+	
+	/**
+	 * 최근 검색 기록 전체 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> deleteSearchRecentAll(Map<String, Object> param) throws Exception {
+		
+		postMapper.deleteSearchRecentAll(param);
+		
+		return ResponseUtil.success();
 	}
 	
 	

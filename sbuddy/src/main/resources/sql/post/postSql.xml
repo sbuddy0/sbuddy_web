@@ -257,7 +257,57 @@
 			idx_member = #{idx_login}
 	</select>
 	
+	<!-- 최근 검색 중복 확인 -->
+	<select id="checkSearch" parameterType="HashMap">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER_SEARCH
+		WHERE
+			idx_member = #{idx_login}
+		AND search_text = #{search}
+	</select>
 	
+	<!-- 본인의 최근 검색 리스트 -->
+	<select id="getSearchRecentList" parameterType="HashMap">
+		SELECT
+			  idx AS idx_search_text
+			, search_text
+		FROM
+			MEMBER_SEARCH
+		WHERE
+			idx_member = #{idx_login}
+		ORDER BY insert_date DESC
+		LIMIT 5
+	</select>
+	
+	<!-- 최근 검색 기록 삭제 -->
+	<delete id="deleteSearchRecent" parameterType="HashMap">
+		DELETE FROM
+			MEMBER_SEARCH
+		WHERE
+			idx = #{idx_search_text}
+		AND idx_member = #{idx_login}
+	</delete>
+	
+	<!-- 최근 검색 기록 전체 삭제 -->
+	<delete id="deleteSearchRecentAll" parameterType="HashMap">
+		DELETE FROM
+			MEMBER_SEARCH
+		WHERE
+			idx_member = #{idx_login}
+	</delete>
+	
+	<!-- 검색 기록 저장 -->
+	<insert id="saveSearch" parameterType="HashMap">
+		INSERT INTO MEMBER_SEARCH (
+			  idx_member
+			, search_text
+		) VALUES (
+			  #{idx_login}
+			, #{search}
+		)
+	</insert>
 	
 	
 	

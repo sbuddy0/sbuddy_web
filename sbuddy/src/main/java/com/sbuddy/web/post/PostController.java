@@ -121,6 +121,41 @@ public class PostController {
 		return postService.searchKeyword(param);
 	}
 	
+	/**
+	 * 본인의 최근 검색 리스트
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/search/recent")
+	public Map<String, Object> getSearchRecentList(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.getSearchRecentList(param);
+	}
+
+	/**
+	 * 최근 검색 기록 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/delete/recent")
+	public Map<String, Object> deleteSearchRecent(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.deleteSearchRecent(param);
+	}
+	
+	/**
+	 * 최근 검색 기록 전체 삭제
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/delete/recent/all")
+	public Map<String, Object> deleteSearchRecentAll(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return postService.deleteSearchRecentAll(param);
+	}
 	
 	 // ####### 게시물 메인 #######
 	@PostMapping("/list")

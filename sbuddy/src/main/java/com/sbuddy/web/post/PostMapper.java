@@ -59,6 +59,20 @@ public interface PostMapper {
 	// 본인 게시글인지 확인
 	public int checkMyPost(Map<String, Object> param);
 
+	// 최근 검색 중복 확인
+	public int checkSearch(Map<String, Object> param);
+
+	// 본인의 최근 검색 리스트
+	public List<Map<String, Object>> getSearchRecentList(Map<String, Object> param);
+	
+	// 최근 검색 기록 삭제
+	public int deleteSearchRecent(Map<String, Object> param);
+
+	// 최근 검색 기록 전체 삭제
+	public int deleteSearchRecentAll(Map<String, Object> param);
+	
+	// 검색 기록 저장
+	public int saveSearch(Map<String, Object> param);
 	
 	// ####### 게시물 메인 #######
 	// 게시글 목록

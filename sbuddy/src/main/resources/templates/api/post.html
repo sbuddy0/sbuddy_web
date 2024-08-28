@@ -170,6 +170,65 @@ div {
 	</div>
 	<div class="card">
 		<div class="card-body">
+			<p><b>6-1. 최근 검색 리스트</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/search/recent</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>6-2. 최근 검색 단일 삭제</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/delete/recent</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+					<input type="text" placeholder="최근 검색 idx">
+					<label>idx_search_text</label>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<p><b>6-3. 최근 검색 전체 삭제</b></p>
+			<button type="button" class="btn btn-primary">통신</button>
+			url : <span>/api/v1/post/delete/recent/all</span>
+		</div>
+		<div class="card-body" style="display: flex;">
+			<div class="col-6 parameter">
+				<p>parameter</p>
+				<div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="card result">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
 			<p><b>7. 키워드 검색</b></p>
 			<button type="button" class="btn btn-primary">통신</button>
 			url : <span>/api/v1/post/search/keyword</span>
