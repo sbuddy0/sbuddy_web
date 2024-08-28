@@ -405,6 +405,7 @@
 			POST p
 		JOIN
 			MEMBER m
+		ON p.idx_member = m.idx
 		WHERE
 			upload_date BETWEEN DATE(DATE_SUB(NOW(), INTERVAL 7 DAY)) and NOW()
 		ORDER BY
