@@ -83,6 +83,8 @@ public class PostService {
 		Map<String, Object> data = new HashMap<>();
 		data.put("data", mappingPost(post));
 		
+		postMapper.updatePostHits(param);
+		
 		return ResponseUtil.success(data);
 	}
 	
