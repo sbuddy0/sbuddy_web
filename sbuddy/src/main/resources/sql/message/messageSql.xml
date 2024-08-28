@@ -39,8 +39,20 @@
 			idx = #{idx_message}
 	</select>
 	
-
-
+	<!-- 회원 검색 -->
+	<select id="findMember" parameterType="HashMap">
+		SELECT
+			  idx AS idx_memeber
+			, username
+			, email
+		FROM
+			MEMBER
+		WHERE
+			username = #{member}
+		OR
+			email = #{member}
+	</select>
+	
 	<!-- 쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="HashMap">
 		INSERT INTO MESSAGE (

@@ -40,6 +40,18 @@ public class MessageController {
 		
 		return messageService.getMessageDetail(param);
 	}
+	
+	/**
+	 * 회원 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/find/member")
+	public Map<String, Object> findMember(@RequestBody Map<String, Object> param) throws Exception {
+		
+		return messageService.findMember(param);
+	}
 
 
 
