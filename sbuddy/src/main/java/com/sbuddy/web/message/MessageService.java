@@ -34,7 +34,6 @@ public class MessageService {
 		return ResponseUtil.success(data);
 	}
 	
-	
 	/**
 	 * 쪽지 상세내용
 	 * @param param
@@ -48,7 +47,21 @@ public class MessageService {
 		return ResponseUtil.success(data);
 	}
 
-
+	/**
+	 * 회원 검색
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> findMember(Map<String, Object> param) throws Exception {
+		
+		List<Map<String, Object>> list = messageMapper.findMember(param);
+		
+		Map<String, Object> data= new HashMap<>();
+		data.put("list", list);
+		
+		return ResponseUtil.success(data);
+	}
 
 
 	/**

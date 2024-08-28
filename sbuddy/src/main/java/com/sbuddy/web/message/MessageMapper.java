@@ -14,7 +14,9 @@ public interface MessageMapper {
 	// 쪽지 상세내용
 	public Map<String, Object> getMessageDetail(Map<String, Object> param);
 
-
+	// 회원 검색
+	public List<Map<String, Object>> findMember(Map<String, Object> param);
+	
 	// 쪽지 보내기
 	public int sendMessage(Map<String, Object> param);
 	
