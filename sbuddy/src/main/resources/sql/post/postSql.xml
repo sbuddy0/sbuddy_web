@@ -396,6 +396,7 @@
 		SELECT
 			p.idx idx_post
 			, title
+			, content
 			, like_cnt
 			, upload_date
 			, hits
