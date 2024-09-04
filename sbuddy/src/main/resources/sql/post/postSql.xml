@@ -174,15 +174,21 @@
 	<!-- 텍스트 검색 -->
 	<select id="searchText" parameterType="HashMap">
 		SELECT
-			  idx AS idx_post
-			, idx_member
+		  	p.idx AS idx_post
+			, p.idx_member
+			, m.username 
+			, p.hits
+			, p.like_cnt 
 			, title
 			, content
 			, like_cnt
-			, upload_date
-			, update_date
+			, p.upload_date
+			, p.update_date
 		FROM
-			POST
+			POST p
+		JOIN
+			MEMBER m
+		ON p.idx_member = m.idx
 		<if test="search != null and search != ''">
 		WHERE
 			(
@@ -192,7 +198,7 @@
 			)
 		</if>
 		ORDER BY
-			upload_date DESC
+			p.upload_date DESC
 	</select>
 	
 	<!-- 텍스트 검색 개수 -->
