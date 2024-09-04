@@ -3,13 +3,38 @@
 	<head>
 		<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Sbuddy API Test Page</title>
+		<style>
+			.wrapper {
+				display: flex;
+				justify-content: flex-start;
+			}
+			.token-field {
+				display: inline-block;
+				margin-right: auto;
+			}
+			.btn-field {
+				display: inline-block;
+			}
+			.btn-field > button > a {
+				text-decoration: none;
+				color: black;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>api test</h1>
-		<div id="header">
-			<label>Token</label>
-			<input id="header_token" type="text" placeholder="로그인 후 token을 적어주세요">
+		<div id="header" class="wrapper">
+			<div class="token-field">
+				<label>Token</label>
+				<input id="header_token" type="text" placeholder="로그인 후 token을 적어주세요">
+			</div>
+			<div class="btn-field">
+				<button type="button"><a href="/">COMMON</a></button>
+				<button type="button"><a href="/post">POST</a></button>
+				<button type="button"><a href="/mypage">MYPAGE</a></button>
+				<button type="button"><a href="/message">MESSAGE</a></button>
+			</div>
 		</div>
 		<div class="card">
 			<div class="card-body">

@@ -3,20 +3,43 @@
 <head>
 <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>게시글 API 테스트</title>
+<title>Sbuddy API Test Page</title>
 <style type="text/css">
 div {
 	padding-bottom : 10px;
+}
+.wrapper {
+	display: flex;
+	justify-content: flex-start;
+}
+.token-field {
+	display: inline-block;
+	margin-right: auto;
+}
+.btn-field {
+	display: inline-block;
+}
+.btn-field > button > a {
+	text-decoration: none;
+	color: black;
 }
 </style>
 </head>
 <body>
 	<h1>api test</h1>
-	<div class="card">
-		<div class="card-header">
-			<label for="member">Token</label>
-			<input type="text" placeholder="Token" id="header_token" value="">
+	<div id="header" class="wrapper">
+		<div class="token-field">
+			<label>Token</label>
+			<input id="header_token" type="text" placeholder="로그인 후 token을 적어주세요">
 		</div>
+		<div class="btn-field">
+			<button type="button"><a href="/">COMMON</a></button>
+			<button type="button"><a href="/post">POST</a></button>
+			<button type="button"><a href="/mypage">MYPAGE</a></button>
+			<button type="button"><a href="/message">MESSAGE</a></button>
+		</div>
+	</div>
+	<div class="card">
 		<div class="card-body">
 			<p><b>1. 게시글 작성</b></p>
 			<button type="button" class="btn btn-primary">통신</button>
