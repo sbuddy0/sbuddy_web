@@ -12,8 +12,12 @@
 			, idx_sender
 			, send_date
 			, idx_reply
+			, (SELECT email FROM MEMBER WHERE idx = ms.idx_receiver) AS receiver_email
+			, (SELECT username FROM MEMBER WHERE idx = ms.idx_receiver) AS receiver_username
+			, (SELECT email FROM MEMBER WHERE idx = ms.idx_sender) AS sender_email
+			, (SELECT username FROM MEMBER WHERE idx = ms.idx_sender) AS sender_username
 		FROM
-			MESSAGE	
+			MESSAGE ms	
 		<where>
 			<if test='message_type == "R" or message_type == null'>
 			idx_receiver = #{idx_login}
