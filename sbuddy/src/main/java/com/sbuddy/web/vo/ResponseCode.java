@@ -18,7 +18,8 @@ public enum ResponseCode {
 	
 	NOT_EXISTS_MEMBER("1001", HttpStatus.OK, "NOT_EXISTS_MEMBER"),
 	
-	
+	// 첫 로그인 시 키워드 등록할 때 이미 키워드가 등록되어있는 경우
+	ALREADY_CHOICE_KEYWORD("1002", HttpStatus.OK, "ALREADY_CHOICE_KEYWORD"),
 	
 	NOT_EXISTS_POST("2001", HttpStatus.OK, "NOT_EXISTS_POST"),
 	ALREADY_POST_LIKE("2002", HttpStatus.OK, "ALREADY_POST_LIKE"),
@@ -26,6 +27,7 @@ public enum ResponseCode {
 	NOT_EXISTS_POST_LIKE("2003", HttpStatus.OK, "NOT_EXISTS_POST_LIKE"),
 	
 	SEND_FAIL_MESSAGE("5001", HttpStatus.OK, "SEND_FAIL_MESSAGE"),
+	
 	
 	
 	// token에 member_idx 를 찾을 수 없는 경우
