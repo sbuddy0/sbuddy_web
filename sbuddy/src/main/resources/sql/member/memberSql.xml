@@ -71,6 +71,16 @@
 		WHERE
 			idx = #{idx_member}
 	</update>
+	
+	<!-- 첫 로그인 시 키워드가 등록되어있는지 검사 -->
+	<select id="getMemberKeywordCount" parameterType="HashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			MEMBER_KEYWORD
+		WHERE
+			idx_member = #{idx_login}
+	</select>
 
 	<!-- 회원 키워드 등록 -->
 	<insert id="insertMemberKeyword" parameterType="HashMap">

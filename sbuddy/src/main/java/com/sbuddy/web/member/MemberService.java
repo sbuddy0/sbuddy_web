@@ -77,14 +77,16 @@ public class MemberService {
 	 * @throws JsonMappingException 
 	 */
 	public Map<String, Object> insertKeyword(Map<String, Object> param) throws JsonMappingException, JsonProcessingException {
+		if(memberMapper.getMemberKeywordCount(param) >= 1) {
+			return ResponseUtil.error(ResponseCode.ALREADY_CHOICE_KEYWORD);
+		}
 		
 		ObjectMapper mapper = new ObjectMapper();
         List<Integer> keywordList = mapper.readValue(param.get("keyword_list").toString(), new TypeReference<List<Integer>>() {});
 		
         for(Integer keywordIdx : keywordList) {
-        	System.out.println(keywordIdx);
         	param.put("idx_keyword", keywordIdx);
-//        	memberMapper.insertMemberKeyword(param);
+        	memberMapper.insertMemberKeyword(param);
         }
         
 		return ResponseUtil.success();
