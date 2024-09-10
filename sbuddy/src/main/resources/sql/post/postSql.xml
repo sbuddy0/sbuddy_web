@@ -353,7 +353,7 @@
 			POST_LIKES pl 
 		ON pl.idx_member = #{idx_login}
 		AND pl.idx_post = p.idx 
-		ORDER BY update_date DESC 
+		ORDER BY p.upload_date DESC 
 		<where>
 			<if test="search != null and search != ''">
 				AND title LIKE CONCAT('%', #{search}, '%')
