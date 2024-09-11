@@ -47,7 +47,7 @@
 	<!-- 회원 검색 -->
 	<select id="findMember" parameterType="HashMap">
 		SELECT
-			  idx AS idx_memeber
+			  idx AS idx_member
 			, username
 			, email
 		FROM
