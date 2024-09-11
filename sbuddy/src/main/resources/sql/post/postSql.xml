@@ -292,7 +292,7 @@
 		WHERE
 			idx_member = #{idx_login}
 		ORDER BY insert_date DESC
-		LIMIT 5
+		LIMIT 10
 	</select>
 	
 	<!-- 최근 검색 기록 삭제 -->

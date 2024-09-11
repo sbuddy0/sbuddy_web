@@ -26,6 +26,7 @@
 			idx_sender = #{idx_login}
 			</if>			
 		</where>
+		ORDER BY send_date DESC
 	</select>
 	
 	<!-- 쪽지 상세내용 -->
