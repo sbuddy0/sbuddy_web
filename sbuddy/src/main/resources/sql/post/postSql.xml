@@ -149,24 +149,25 @@
 			idx_post = #{idx_post}
 	</delete>
 	
-	<!-- 북마크 리스트 -->
-	<select id="getBookmarkList" parameterType="HashMap">
+	<!-- 내가 좋아요를 한 게시글 리스트 -->
+	<select id="getLikeList" parameterType="HashMap">
 		SELECT
-			  b.idx AS idx_bookmark
-			, b.idx_member
-			, p.idx AS idx_post
+			  pl.idx_post
+			, pl.idx_member
 			, p.title 
 			, p.content
 			, p.like_cnt
 			, p.upload_date
 			, p.update_date
+			, p.end_date
+			, p.hits
 		FROM
-			BOOKMARK b
+			POST_LIKES pl
 		JOIN
 			POST p
-		ON b.idx_post = p.idx
+		ON pl.idx_post = p.idx
 		WHERE
-			b.idx_member = #{idx_login}
+			pl.idx_member = #{idx_login}
 		ORDER BY
 			p.upload_date DESC
 	</select>

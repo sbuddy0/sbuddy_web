@@ -210,14 +210,14 @@ public class PostService {
 	
 
 	/**
-	 * 북마크 리스트
+	 * 내가 좋아요를 한 게시글 리스트
 	 * @param param
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> getBookmarkList(Map<String, Object> param) throws Exception {
+	public Map<String, Object> getLikeList(Map<String, Object> param) throws Exception {
 				
-		List<Map<String, Object>> list = postMapper.getBookmarkList(param);
+		List<Map<String, Object>> list = postMapper.getLikeList(param);
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("list", mappingPost(list));
