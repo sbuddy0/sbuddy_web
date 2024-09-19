@@ -86,15 +86,15 @@ public class PostController {
 	}
 	
 	/**
-	 *  북마크 리스트
+	 *  내가 좋아요를 한 게시글 리스트
 	 * @param param
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/bookmark/list")
+	@PostMapping("/like/list")
 	public Map<String, Object> getBookmarkList(@RequestBody Map<String, Object> param) throws Exception {
 		
-		return postService.getBookmarkList(param);
+		return postService.getLikeList(param);
 	}
 	
 	/**

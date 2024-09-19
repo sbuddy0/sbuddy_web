@@ -41,8 +41,8 @@ public interface PostMapper {
 	// 글 파일 삭제
 	public int deletePostFile(Map<String, Object> param);
 	
-	// 북마크 리스트
-	public List<Map<String, Object>> getBookmarkList(Map<String, Object> param);
+	// 내가 좋아요를 한 게시글 리스트
+	public List<Map<String, Object>> getLikeList(Map<String, Object> param);
 	
 	// 텍스트 검색
 	public List<Map<String, Object>> searchText(Map<String, Object> param);
