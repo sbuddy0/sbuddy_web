@@ -165,6 +165,7 @@
 			, m.username
 			, m.profile
 			, m.email
+			, IF(ISNULL(pl.idx_member), "false", "true") AS is_like
 		FROM
 			POST_LIKES pl
 		JOIN
