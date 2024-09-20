@@ -161,17 +161,24 @@
 			, p.update_date
 			, p.end_date
 			, p.hits
+			, m.id
+			, m.username
+			, m.profile
+			, m.email
 		FROM
 			POST_LIKES pl
 		JOIN
 			POST p
 		ON pl.idx_post = p.idx
+		JOIN
+			MEMBER m
+		ON m.idx = pl.idx_member
 		WHERE
 			pl.idx_member = #{idx_login}
 		ORDER BY
 			p.upload_date DESC
 	</select>
-	
+
 	<!-- 텍스트 검색 -->
 	<select id="searchText" parameterType="HashMap">
 		SELECT
