@@ -153,7 +153,7 @@
 	<select id="getLikeList" parameterType="HashMap">
 		SELECT
 			  pl.idx_post
-			, pl.idx_member
+			, p.idx_member
 			, p.title 
 			, p.content
 			, p.like_cnt
@@ -173,7 +173,7 @@
 		ON pl.idx_post = p.idx
 		JOIN
 			MEMBER m
-		ON m.idx = pl.idx_member
+		ON m.idx = p.idx_member
 		WHERE
 			pl.idx_member = #{idx_login}
 		ORDER BY
