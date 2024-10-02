@@ -26,7 +26,7 @@
 	
 	
 	<!-- 회원가입시 회원 등록 -->
-	<insert id="joinMember" parameterType="HashMap">
+	<insert id="joinMember" parameterType="HashMap" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO MEMBER (
 			id
 			, password

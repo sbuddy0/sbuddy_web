@@ -87,8 +87,14 @@ public class AuthService {
 		
 		param.put("hashPassword", hashPassword);
 		memberMapper.joinMember(param);
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("idx_member", param.get("idx"));
 		
-		return ResponseUtil.success();
+		String jwtToken = jwtService.loginToken(result);
+		result.put("token", jwtToken);
+		
+		return ResponseUtil.success(result);
 	}
 	
 	/**
