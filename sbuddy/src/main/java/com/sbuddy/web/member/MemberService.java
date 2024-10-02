@@ -41,7 +41,7 @@ public class MemberService {
 	 	Map<String, Object> data = memberMapper.getMemberInfo(param);
 	 	
 	 	if(data == null) {
-	 		return ResponseUtil.error(ResponseCode.FAIL);
+	 		return ResponseUtil.error(ResponseCode.NOT_EXISTS_MEMBER);
 	 	}
 	 	
 	 	param.putAll(data);

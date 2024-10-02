@@ -72,11 +72,11 @@ public class AuthService {
 	public Map<String, Object> join(Map<String, Object> param) throws Exception {
 		//1. 이메일 중복확인
 		if(memberMapper.duplicateMember(param) == 1) {
-			return ResponseUtil.error(ResponseCode.FAIL);
+			return ResponseUtil.error(ResponseCode.EMAIL_DUIPLICATE);
 		}
 		//2. 인증된 이메일인지 확인
 		if(authMapper.isEmailAuth(param) != 1) {
-			return ResponseUtil.error(ResponseCode.FAIL);
+			return ResponseUtil.error(ResponseCode.NOT_AUTH_EMAIL);
 		}
 		
 		param.put("id", param.get("email"));
@@ -134,7 +134,7 @@ public class AuthService {
 		int result = authMapper.authEmail(param);
 		
 		if(result != 1) { // 인증번호 오류
-			return ResponseUtil.error(ResponseCode.FAIL);
+			return ResponseUtil.error(ResponseCode.INCORRECT_AUTH_NUMBER);
 		} else {
 			authMapper.completeEmailAuth(param);
 		}

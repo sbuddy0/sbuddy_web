@@ -21,6 +21,14 @@ public enum ResponseCode {
 	// 첫 로그인 시 키워드 등록할 때 이미 키워드가 등록되어있는 경우
 	ALREADY_CHOICE_KEYWORD("1002", HttpStatus.OK, "ALREADY_CHOICE_KEYWORD"),
 	
+	EMAIL_DUIPLICATE("1003", HttpStatus.OK, "EMAIL_DUPLICATE"),
+	
+	NOT_AUTH_EMAIL("1004", HttpStatus.OK, "NOT_AUTH_EMAIL"),
+	
+	INCORRECT_AUTH_NUMBER("1005", HttpStatus.OK, "INCORRECT_AUTH_NUMBER"),
+	
+	
+	
 	NOT_EXISTS_POST("2001", HttpStatus.OK, "NOT_EXISTS_POST"),
 	ALREADY_POST_LIKE("2002", HttpStatus.OK, "ALREADY_POST_LIKE"),
 	
