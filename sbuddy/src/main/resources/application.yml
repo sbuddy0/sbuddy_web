@@ -31,6 +31,14 @@ jwt:
   secret:
     key: b7c1ccf275440e551218989bb7ce9dd23485a7274ff5eaa95e3092626dc164e738b6120681b9abef7426c0be11ae2915f9bf4256293c3a7545ea129bdc6db8d6
 
+#jasypt
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    password: ${jasypt.encryptor.password}
+  
+
 ---
 
 spring:
@@ -42,12 +50,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://15.164.43.222:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
     username: sbuddev
-    password: sbuddev12#$
+    password: ENC(fXQxnPxRzUoxou7juqdXiTgYKjRrFOXj)
   mail:
     host: smtp.gmail.com
     port: 587
-    username: leenomt@chungbuk.ac.kr
-    password: xosw ujub yqpi notz
+    username: leetube2123
+    password: ENC(90Fy7gCSFo0MokeMP4VeCMWa0E14tRCJQbmURIHBd1Y=)
     properties:
       mail:
         smtp:
@@ -71,12 +79,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://15.164.43.222:3306/sbuddy?serverTimezone=UTC&characterEncoding=UTF-8
     username: sbuddev
-    password: sbuddev12#$
+    password: ENC(fXQxnPxRzUoxou7juqdXiTgYKjRrFOXj)
   mail:
     host: smtp.gmail.com
     port: 587
-    username: leenomt@chungbuk.ac.kr
-    password: xosw ujub yqpi notz
+    username: leetube2123
+    password: ENC(90Fy7gCSFo0MokeMP4VeCMWa0E14tRCJQbmURIHBd1Y=)
     properties:
       mail:
         smtp:
