@@ -54,9 +54,9 @@
 		FROM
 			MEMBER
 		WHERE
-			username = #{member}
+			username LIKE CONCAT('%', #{member}, '%')
 		OR
-			email = #{member}
+			email LIKE CONCAT('%', #{member}, '%')
 	</select>
 	
 	<!-- 쪽지 보내기 -->
