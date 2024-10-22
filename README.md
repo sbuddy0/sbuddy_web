@@ -54,6 +54,10 @@
 * 마이페이지
   
 
+## ERD
+![sbuddyDB](https://github.com/user-attachments/assets/44dbe7b5-15f5-41d2-9d2c-cc6f3de1c3ad)
+
+
 ## API 테스트 페이지
 
 www.sbuddy.kro.kr:8443
