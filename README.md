@@ -58,6 +58,10 @@
 ![sbuddyDB](https://github.com/user-attachments/assets/44dbe7b5-15f5-41d2-9d2c-cc6f3de1c3ad)
 
 
+## 화면 설계
+https://www.figma.com/design/b3rdOGT4CzMoO6rPisELl9/Figma-basics?node-id=0-1&t=QF24pyHnGfJCFO2I-1
+
+
 ## API 테스트 페이지
 
 www.sbuddy.kro.kr:8443
